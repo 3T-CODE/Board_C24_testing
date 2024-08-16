@@ -10,6 +10,7 @@
 
 ### Led , I2C1
   Tất cả các led đều hoạt động ổn định , sở dĩ led RGB không sáng được màu xanh dương là do lỗi hàn board hàn sai chiều của led RGB.
+  
 https://github.com/user-attachments/assets/4d96ffdd-37b0-4d72-a341-007f4002333b
 
 ### Button , UART
