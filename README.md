@@ -1,11 +1,15 @@
 # Board_C24_testing
 ## Giới thiệu 
-  Đây là thống kê tình hình test (kiểm thử) board C24 và bao gồm demo một số chức năng hoạt động được đồng thời nêu lên một số chức năng (khối) bị lỗi , xem thêm ở phần Issues
+  Đây là thống kê tình hình test (kiểm thử) board C24 và bao gồm demo một số chức năng hoạt động được đồng thời nêu lên một số chức năng (khối) bị lỗi , xem thêm ở phần Issues 
+  Code kiểm thử trong 2 thư mục 'Board_C24_Test' và 'Board_C24_neovim'  , nhưng thư mục 'Board_C24_Test' chưa được hoàn thiện.
+  
+    'Board_C24_neovim' chứa các thư viện , code dành cho việc test các ngoại vi Led , Uart , Ds1307 , MPU6050 , Button
+    'Board_C24_Test' chứa thư viện , code dành cho việc test TFT ILI9225.
+  
 ## Thống kê tình hình 
 
-
-
   Các khối chức năng trên board C24 hoạt động bình thường trừ khối I2C2 onboard (Ds1307 và MPU6050 không giao tiếp được) , ngoài ra còn có lỗi ở ký hiệu trên board cụ thể ở phần HC05 ký hiệu bị in ngược .
+  
 ## Demo 
 
 ### Led , I2C1
