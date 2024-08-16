@@ -8,17 +8,17 @@
   
 ## Thống kê tình hình 
 
-  Các khối chức năng trên board C24 hoạt động bình thường trừ khối I2C2 onboard (Ds1307 và MPU6050 không giao tiếp được) , ngoài ra còn có lỗi ở ký hiệu trên board cụ thể ở phần HC05 ký hiệu bị in ngược .
+  - Các khối chức năng trên board C24 hoạt động bình thường trừ khối I2C2 onboard (Ds1307 và MPU6050 không giao tiếp được) , ngoài ra còn có lỗi ở ký hiệu trên board cụ thể ở phần HC05 ký hiệu bị in ngược .
   
 ## Demo 
 
 ### Led , I2C1
-  Tất cả các led đều hoạt động ổn định , sở dĩ led RGB không sáng được màu xanh dương là do lỗi hàn board hàn sai chiều của led RGB.
+ - Tất cả các led đều hoạt động ổn định , sở dĩ led RGB không sáng được màu xanh dương là do lỗi hàn board hàn sai chiều của led RGB.
   
 https://github.com/user-attachments/assets/4d96ffdd-37b0-4d72-a341-007f4002333b
 
 ### Button , UART
-  2 Nút nhấn Button1 và Button2 trên board hoạt động bình thường , các nút khác đều hoạt động ổn định dù không có trong demo, tín hiệu truyền qua UART1 (STM32 -> USB) hoạt động bình thường
+  - 2 Nút nhấn Button1 và Button2 trên board hoạt động bình thường , các nút khác đều hoạt động ổn định dù không có trong demo, tín hiệu truyền qua UART1 (STM32 -> USB) hoạt động bình thường
 
 https://github.com/user-attachments/assets/fa2e59fe-b2f5-44a6-98a3-c773e669cc39
 
@@ -45,7 +45,7 @@ https://github.com/user-attachments/assets/e21475a4-c1d6-4625-b237-10e0a6651410
 ### Esp32 
   - Esp32 trên board hoạt động bình thường , đã thử nạp code và blink led video demo ở trên phần led 
 
-#### Notes : 
+## Notes : 
    - Chi tiết được liệt kê trong file .docx
    - Code của TFT chưa hoàn thiện do đã làm mất file test ban đầu nên cần làm lại file mới và cần thêm chỉnh sửa 
    - Khi sử dụng Led RGB không sử dụng được chức năng live expression trên stm32 
