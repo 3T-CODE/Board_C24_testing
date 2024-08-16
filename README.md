@@ -1,10 +1,10 @@
 # Board_C24_testing
 ## Giới thiệu 
-  Đây là thống kê tình hình test (kiểm thử) board C24 và bao gồm demo một số chức năng hoạt động được đồng thời nêu lên một số chức năng (khối) bị lỗi , xem thêm ở phần Issues 
+   Đây là thống kê tình hình test (kiểm thử) board C24 và bao gồm demo một số chức năng hoạt động được đồng thời nêu lên một số chức năng (khối) bị lỗi , xem thêm ở phần Issues 
   Code kiểm thử trong 2 thư mục 'Board_C24_Test' và 'Board_C24_neovim'  , nhưng thư mục 'Board_C24_Test' chưa được hoàn thiện.
   
-  'Board_C24_neovim' chứa các thư viện , code dành cho việc test các ngoại vi Led , Uart , Ds1307 , MPU6050 , Button
-  'Board_C24_Test' chứa thư viện , code dành cho việc test TFT ILI9225.
+   'Board_C24_neovim' chứa các thư viện , code dành cho việc test các ngoại vi Led , Uart , Ds1307 , MPU6050 , Button
+   'Board_C24_Test' chứa thư viện , code dành cho việc test TFT ILI9225.
   
 ## Thống kê tình hình 
 
@@ -46,9 +46,9 @@ https://github.com/user-attachments/assets/e21475a4-c1d6-4625-b237-10e0a6651410
   Esp32 trên board hoạt động bình thường , đã thử nạp code và blink led video demo ở trên phần led 
 
 #### Notes : 
-   Chi tiết được liệt kê trong file .docx
-   Code của TFT chưa hoàn thiện do đã làm mất file test ban đầu nên cần làm lại file mới và cần thêm chỉnh sửa 
-   Khi sử dụng Led RGB không sử dụng được chức năng live expression trên stm32 
+    Chi tiết được liệt kê trong file .docx
+    Code của TFT chưa hoàn thiện do đã làm mất file test ban đầu nên cần làm lại file mới và cần thêm chỉnh sửa 
+    Khi sử dụng Led RGB không sử dụng được chức năng live expression trên stm32 
     Hiện tạm thời không thể test thêm do Stlink đã bị hỏng , cần người hỗ trợ test thêm .
 
     
