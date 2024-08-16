@@ -1,6 +1,6 @@
 # Board_C24_testing
 ## Giới thiệu 
-  Đây là thống kê tình hình test (kiểm thử) board C24 và bao gồm demo một số chức năng hoạt động được 
+  Đây là thống kê tình hình test (kiểm thử) board C24 và bao gồm demo một số chức năng hoạt động được đồng thời nêu lên một số chức năng (khối) bị lỗi , xem thêm ở phần Issues
 ## Thống kê tình hình 
 
 
