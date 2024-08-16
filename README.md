@@ -33,6 +33,12 @@ https://github.com/user-attachments/assets/e21475a4-c1d6-4625-b237-10e0a6651410
 ### Buzzer
   Tạm chưa có video demo nhưng đã test qua và hoạt động bình thường
 
+### HC05
+  HC05 hoạt động bình thường nhưng ký hiệu trên board bị sai 
+  
+  ![7bee6f7779b8dde684a9](https://github.com/user-attachments/assets/641131f6-7fa7-41f3-86e0-e5adf9844518)
+
+
 #### Notes : 
     Chi tiết được liệt kê trong file .docx
     Code của TFT chưa hoàn thiện do đã làm mất file test ban đầu nên cần làm lại file mới và cần thêm chỉnh sửa 
