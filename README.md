@@ -38,6 +38,8 @@ https://github.com/user-attachments/assets/e21475a4-c1d6-4625-b237-10e0a6651410
   
   ![7bee6f7779b8dde684a9](https://github.com/user-attachments/assets/641131f6-7fa7-41f3-86e0-e5adf9844518)
 
+### Esp32 
+  Esp32 trên board hoạt động bình thường , đã thử nạp code và blink led video demo ở trên phần led 
 
 #### Notes : 
     Chi tiết được liệt kê trong file .docx
