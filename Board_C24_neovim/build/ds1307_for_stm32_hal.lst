@@ -1,0 +1,1464 @@
+ARM GAS  /tmp/ccO29UDV.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ds1307_for_stm32_hal.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Src/ds1307_for_stm32_hal.c"
+  18              		.section	.text.DS1307_SetRegByte,"ax",%progbits
+  19              		.align	1
+  20              		.global	DS1307_SetRegByte
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	DS1307_SetRegByte:
+  26              	.LVL0:
+  27              	.LFB68:
+   1:Src/ds1307_for_stm32_hal.c **** /* An STM32 HAL library written for the DS1307 real-time clock IC. */
+   2:Src/ds1307_for_stm32_hal.c **** /* Library by @eepj www.github.com/eepj */
+   3:Src/ds1307_for_stm32_hal.c **** #include "ds1307_for_stm32_hal.h"
+   4:Src/ds1307_for_stm32_hal.c **** #include "main.h"
+   5:Src/ds1307_for_stm32_hal.c **** #ifdef __cplusplus
+   6:Src/ds1307_for_stm32_hal.c **** extern "C"{
+   7:Src/ds1307_for_stm32_hal.c **** #endif
+   8:Src/ds1307_for_stm32_hal.c **** 
+   9:Src/ds1307_for_stm32_hal.c **** I2C_HandleTypeDef *_ds1307_ui2c;
+  10:Src/ds1307_for_stm32_hal.c **** 	
+  11:Src/ds1307_for_stm32_hal.c **** /**
+  12:Src/ds1307_for_stm32_hal.c ****  * @brief Initializes the DS1307 module. Sets clock halt bit to 0 to start timing.
+  13:Src/ds1307_for_stm32_hal.c ****  * @param hi2c User I2C handle pointer.
+  14:Src/ds1307_for_stm32_hal.c ****  */
+  15:Src/ds1307_for_stm32_hal.c **** void DS1307_Init(I2C_HandleTypeDef *hi2c) {
+  16:Src/ds1307_for_stm32_hal.c **** 	_ds1307_ui2c = hi2c;
+  17:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetClockHalt(0);
+  18:Src/ds1307_for_stm32_hal.c **** }
+  19:Src/ds1307_for_stm32_hal.c **** 
+  20:Src/ds1307_for_stm32_hal.c **** /**
+  21:Src/ds1307_for_stm32_hal.c ****  * @brief Sets clock halt bit.
+  22:Src/ds1307_for_stm32_hal.c ****  * @param halt Clock halt bit to set, 0 or 1. 0 to start timing, 0 to stop.
+  23:Src/ds1307_for_stm32_hal.c ****  */
+  24:Src/ds1307_for_stm32_hal.c **** void DS1307_SetClockHalt(uint8_t halt) {
+  25:Src/ds1307_for_stm32_hal.c **** 	uint8_t ch = (halt ? 1 << 7 : 0);
+  26:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_SECOND, ch | (DS1307_GetRegByte(DS1307_REG_SECOND) & 0x7f));
+  27:Src/ds1307_for_stm32_hal.c **** }
+  28:Src/ds1307_for_stm32_hal.c **** 
+  29:Src/ds1307_for_stm32_hal.c **** /**
+  30:Src/ds1307_for_stm32_hal.c ****  * @brief Gets clock halt bit.
+  31:Src/ds1307_for_stm32_hal.c ****  * @return Clock halt bit, 0 or 1.
+ARM GAS  /tmp/ccO29UDV.s 			page 2
+
+
+  32:Src/ds1307_for_stm32_hal.c ****  */
+  33:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetClockHalt(void) {
+  34:Src/ds1307_for_stm32_hal.c **** 	return (DS1307_GetRegByte(DS1307_REG_SECOND) & 0x80) >> 7;
+  35:Src/ds1307_for_stm32_hal.c **** }
+  36:Src/ds1307_for_stm32_hal.c **** 
+  37:Src/ds1307_for_stm32_hal.c **** /**
+  38:Src/ds1307_for_stm32_hal.c ****  * @brief Sets the byte in the designated DS1307 register to value.
+  39:Src/ds1307_for_stm32_hal.c ****  * @param regAddr Register address to write.
+  40:Src/ds1307_for_stm32_hal.c ****  * @param val Value to set, 0 to 255.
+  41:Src/ds1307_for_stm32_hal.c ****  */
+  42:Src/ds1307_for_stm32_hal.c **** void DS1307_SetRegByte(uint8_t regAddr, uint8_t val) {
+  28              		.loc 1 42 54 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 42 54 is_stmt 0 view .LVU1
+  33 0000 00B5     		push	{lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  37 0002 85B0     		sub	sp, sp, #20
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 24
+  43:Src/ds1307_for_stm32_hal.c **** 	uint8_t bytes[2] = { regAddr, val };
+  40              		.loc 1 43 2 is_stmt 1 view .LVU2
+  41              		.loc 1 43 10 is_stmt 0 view .LVU3
+  42 0004 8DF80C00 		strb	r0, [sp, #12]
+  43 0008 8DF80D10 		strb	r1, [sp, #13]
+  44:Src/ds1307_for_stm32_hal.c **** 	HAL_I2C_Master_Transmit(_ds1307_ui2c, DS1307_I2C_ADDR << 1, bytes, 2, DS1307_TIMEOUT);
+  44              		.loc 1 44 2 is_stmt 1 view .LVU4
+  45 000c 4FF47A73 		mov	r3, #1000
+  46 0010 0093     		str	r3, [sp]
+  47 0012 0223     		movs	r3, #2
+  48 0014 03AA     		add	r2, sp, #12
+  49 0016 D021     		movs	r1, #208
+  50              	.LVL1:
+  51              		.loc 1 44 2 is_stmt 0 view .LVU5
+  52 0018 0348     		ldr	r0, .L3
+  53              	.LVL2:
+  54              		.loc 1 44 2 view .LVU6
+  55 001a 0068     		ldr	r0, [r0]
+  56 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+  57              	.LVL3:
+  45:Src/ds1307_for_stm32_hal.c **** }
+  58              		.loc 1 45 1 view .LVU7
+  59 0020 05B0     		add	sp, sp, #20
+  60              	.LCFI2:
+  61              		.cfi_def_cfa_offset 4
+  62              		@ sp needed
+  63 0022 5DF804FB 		ldr	pc, [sp], #4
+  64              	.L4:
+  65 0026 00BF     		.align	2
+  66              	.L3:
+  67 0028 00000000 		.word	_ds1307_ui2c
+  68              		.cfi_endproc
+  69              	.LFE68:
+  71              		.section	.text.DS1307_GetRegByte,"ax",%progbits
+ARM GAS  /tmp/ccO29UDV.s 			page 3
+
+
+  72              		.align	1
+  73              		.global	DS1307_GetRegByte
+  74              		.syntax unified
+  75              		.thumb
+  76              		.thumb_func
+  78              	DS1307_GetRegByte:
+  79              	.LVL4:
+  80              	.LFB69:
+  46:Src/ds1307_for_stm32_hal.c **** 
+  47:Src/ds1307_for_stm32_hal.c **** /**
+  48:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the byte in the designated DS1307 register.
+  49:Src/ds1307_for_stm32_hal.c ****  * @param regAddr Register address to read.
+  50:Src/ds1307_for_stm32_hal.c ****  * @return Value stored in the register, 0 to 255.
+  51:Src/ds1307_for_stm32_hal.c ****  */
+  52:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetRegByte(uint8_t regAddr) {
+  81              		.loc 1 52 44 is_stmt 1 view -0
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 16
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85              		.loc 1 52 44 is_stmt 0 view .LVU9
+  86 0000 30B5     		push	{r4, r5, lr}
+  87              	.LCFI3:
+  88              		.cfi_def_cfa_offset 12
+  89              		.cfi_offset 4, -12
+  90              		.cfi_offset 5, -8
+  91              		.cfi_offset 14, -4
+  92 0002 87B0     		sub	sp, sp, #28
+  93              	.LCFI4:
+  94              		.cfi_def_cfa_offset 40
+  95 0004 8DF80F00 		strb	r0, [sp, #15]
+  53:Src/ds1307_for_stm32_hal.c **** 	uint8_t val;
+  96              		.loc 1 53 2 is_stmt 1 view .LVU10
+  54:Src/ds1307_for_stm32_hal.c **** 	HAL_I2C_Master_Transmit(_ds1307_ui2c, DS1307_I2C_ADDR << 1, &regAddr, 1, DS1307_TIMEOUT);
+  97              		.loc 1 54 2 view .LVU11
+  98 0008 0B4C     		ldr	r4, .L7
+  99 000a 4FF47A75 		mov	r5, #1000
+ 100 000e 0095     		str	r5, [sp]
+ 101 0010 0123     		movs	r3, #1
+ 102 0012 0DF10F02 		add	r2, sp, #15
+ 103 0016 D021     		movs	r1, #208
+ 104 0018 2068     		ldr	r0, [r4]
+ 105              	.LVL5:
+ 106              		.loc 1 54 2 is_stmt 0 view .LVU12
+ 107 001a FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 108              	.LVL6:
+  55:Src/ds1307_for_stm32_hal.c **** 	HAL_I2C_Master_Receive(_ds1307_ui2c, DS1307_I2C_ADDR << 1, &val, 1, DS1307_TIMEOUT);
+ 109              		.loc 1 55 2 is_stmt 1 view .LVU13
+ 110 001e 0095     		str	r5, [sp]
+ 111 0020 0123     		movs	r3, #1
+ 112 0022 0DF11702 		add	r2, sp, #23
+ 113 0026 D021     		movs	r1, #208
+ 114 0028 2068     		ldr	r0, [r4]
+ 115 002a FFF7FEFF 		bl	HAL_I2C_Master_Receive
+ 116              	.LVL7:
+  56:Src/ds1307_for_stm32_hal.c **** 	return val;
+ 117              		.loc 1 56 2 view .LVU14
+  57:Src/ds1307_for_stm32_hal.c **** }
+ARM GAS  /tmp/ccO29UDV.s 			page 4
+
+
+ 118              		.loc 1 57 1 is_stmt 0 view .LVU15
+ 119 002e 9DF81700 		ldrb	r0, [sp, #23]	@ zero_extendqisi2
+ 120 0032 07B0     		add	sp, sp, #28
+ 121              	.LCFI5:
+ 122              		.cfi_def_cfa_offset 12
+ 123              		@ sp needed
+ 124 0034 30BD     		pop	{r4, r5, pc}
+ 125              	.L8:
+ 126 0036 00BF     		.align	2
+ 127              	.L7:
+ 128 0038 00000000 		.word	_ds1307_ui2c
+ 129              		.cfi_endproc
+ 130              	.LFE69:
+ 132              		.section	.text.DS1307_SetClockHalt,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	DS1307_SetClockHalt
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 139              	DS1307_SetClockHalt:
+ 140              	.LVL8:
+ 141              	.LFB66:
+  24:Src/ds1307_for_stm32_hal.c **** 	uint8_t ch = (halt ? 1 << 7 : 0);
+ 142              		.loc 1 24 40 is_stmt 1 view -0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+  24:Src/ds1307_for_stm32_hal.c **** 	uint8_t ch = (halt ? 1 << 7 : 0);
+ 146              		.loc 1 24 40 is_stmt 0 view .LVU17
+ 147 0000 10B5     		push	{r4, lr}
+ 148              	.LCFI6:
+ 149              		.cfi_def_cfa_offset 8
+ 150              		.cfi_offset 4, -8
+ 151              		.cfi_offset 14, -4
+  25:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_SECOND, ch | (DS1307_GetRegByte(DS1307_REG_SECOND) & 0x7f));
+ 152              		.loc 1 25 2 is_stmt 1 view .LVU18
+  25:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_SECOND, ch | (DS1307_GetRegByte(DS1307_REG_SECOND) & 0x7f));
+ 153              		.loc 1 25 10 is_stmt 0 view .LVU19
+ 154 0002 0446     		mov	r4, r0
+ 155 0004 00B1     		cbz	r0, .L10
+  25:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_SECOND, ch | (DS1307_GetRegByte(DS1307_REG_SECOND) & 0x7f));
+ 156              		.loc 1 25 10 discriminator 1 view .LVU20
+ 157 0006 8024     		movs	r4, #128
+ 158              	.L10:
+ 159              	.LVL9:
+  26:Src/ds1307_for_stm32_hal.c **** }
+ 160              		.loc 1 26 2 is_stmt 1 view .LVU21
+  26:Src/ds1307_for_stm32_hal.c **** }
+ 161              		.loc 1 26 45 is_stmt 0 view .LVU22
+ 162 0008 0020     		movs	r0, #0
+ 163              	.LVL10:
+  26:Src/ds1307_for_stm32_hal.c **** }
+ 164              		.loc 1 26 45 view .LVU23
+ 165 000a FFF7FEFF 		bl	DS1307_GetRegByte
+ 166              	.LVL11:
+  26:Src/ds1307_for_stm32_hal.c **** }
+ 167              		.loc 1 26 2 discriminator 1 view .LVU24
+ARM GAS  /tmp/ccO29UDV.s 			page 5
+
+
+ 168 000e 00F07F01 		and	r1, r0, #127
+ 169 0012 2143     		orrs	r1, r1, r4
+ 170 0014 0020     		movs	r0, #0
+ 171 0016 FFF7FEFF 		bl	DS1307_SetRegByte
+ 172              	.LVL12:
+  27:Src/ds1307_for_stm32_hal.c **** 
+ 173              		.loc 1 27 1 view .LVU25
+ 174 001a 10BD     		pop	{r4, pc}
+  27:Src/ds1307_for_stm32_hal.c **** 
+ 175              		.loc 1 27 1 view .LVU26
+ 176              		.cfi_endproc
+ 177              	.LFE66:
+ 179              		.section	.text.DS1307_Init,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	DS1307_Init
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 186              	DS1307_Init:
+ 187              	.LVL13:
+ 188              	.LFB65:
+  15:Src/ds1307_for_stm32_hal.c **** 	_ds1307_ui2c = hi2c;
+ 189              		.loc 1 15 43 is_stmt 1 view -0
+ 190              		.cfi_startproc
+ 191              		@ args = 0, pretend = 0, frame = 0
+ 192              		@ frame_needed = 0, uses_anonymous_args = 0
+  15:Src/ds1307_for_stm32_hal.c **** 	_ds1307_ui2c = hi2c;
+ 193              		.loc 1 15 43 is_stmt 0 view .LVU28
+ 194 0000 08B5     		push	{r3, lr}
+ 195              	.LCFI7:
+ 196              		.cfi_def_cfa_offset 8
+ 197              		.cfi_offset 3, -8
+ 198              		.cfi_offset 14, -4
+  16:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetClockHalt(0);
+ 199              		.loc 1 16 2 is_stmt 1 view .LVU29
+  16:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetClockHalt(0);
+ 200              		.loc 1 16 15 is_stmt 0 view .LVU30
+ 201 0002 034B     		ldr	r3, .L14
+ 202 0004 1860     		str	r0, [r3]
+  17:Src/ds1307_for_stm32_hal.c **** }
+ 203              		.loc 1 17 2 is_stmt 1 view .LVU31
+ 204 0006 0020     		movs	r0, #0
+ 205              	.LVL14:
+  17:Src/ds1307_for_stm32_hal.c **** }
+ 206              		.loc 1 17 2 is_stmt 0 view .LVU32
+ 207 0008 FFF7FEFF 		bl	DS1307_SetClockHalt
+ 208              	.LVL15:
+  18:Src/ds1307_for_stm32_hal.c **** 
+ 209              		.loc 1 18 1 view .LVU33
+ 210 000c 08BD     		pop	{r3, pc}
+ 211              	.L15:
+ 212 000e 00BF     		.align	2
+ 213              	.L14:
+ 214 0010 00000000 		.word	_ds1307_ui2c
+ 215              		.cfi_endproc
+ 216              	.LFE65:
+ 218              		.section	.text.DS1307_GetClockHalt,"ax",%progbits
+ARM GAS  /tmp/ccO29UDV.s 			page 6
+
+
+ 219              		.align	1
+ 220              		.global	DS1307_GetClockHalt
+ 221              		.syntax unified
+ 222              		.thumb
+ 223              		.thumb_func
+ 225              	DS1307_GetClockHalt:
+ 226              	.LFB67:
+  33:Src/ds1307_for_stm32_hal.c **** 	return (DS1307_GetRegByte(DS1307_REG_SECOND) & 0x80) >> 7;
+ 227              		.loc 1 33 35 is_stmt 1 view -0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231 0000 08B5     		push	{r3, lr}
+ 232              	.LCFI8:
+ 233              		.cfi_def_cfa_offset 8
+ 234              		.cfi_offset 3, -8
+ 235              		.cfi_offset 14, -4
+  34:Src/ds1307_for_stm32_hal.c **** }
+ 236              		.loc 1 34 2 view .LVU35
+  34:Src/ds1307_for_stm32_hal.c **** }
+ 237              		.loc 1 34 10 is_stmt 0 view .LVU36
+ 238 0002 0020     		movs	r0, #0
+ 239 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 240              	.LVL16:
+  35:Src/ds1307_for_stm32_hal.c **** 
+ 241              		.loc 1 35 1 view .LVU37
+ 242 0008 C0F3C010 		ubfx	r0, r0, #7, #1
+ 243 000c 08BD     		pop	{r3, pc}
+ 244              		.cfi_endproc
+ 245              	.LFE67:
+ 247              		.section	.text.DS1307_SetEnableSquareWave,"ax",%progbits
+ 248              		.align	1
+ 249              		.global	DS1307_SetEnableSquareWave
+ 250              		.syntax unified
+ 251              		.thumb
+ 252              		.thumb_func
+ 254              	DS1307_SetEnableSquareWave:
+ 255              	.LVL17:
+ 256              	.LFB70:
+  58:Src/ds1307_for_stm32_hal.c **** 
+  59:Src/ds1307_for_stm32_hal.c **** /**
+  60:Src/ds1307_for_stm32_hal.c ****  * @brief Toggle square wave output on pin 7.
+  61:Src/ds1307_for_stm32_hal.c ****  * @param mode DS1307_ENABLED (1) or DS1307_DISABLED (0);
+  62:Src/ds1307_for_stm32_hal.c ****  */
+  63:Src/ds1307_for_stm32_hal.c **** void DS1307_SetEnableSquareWave(DS1307_SquareWaveEnable mode){
+ 257              		.loc 1 63 62 is_stmt 1 view -0
+ 258              		.cfi_startproc
+ 259              		@ args = 0, pretend = 0, frame = 0
+ 260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 261              		.loc 1 63 62 is_stmt 0 view .LVU39
+ 262 0000 10B5     		push	{r4, lr}
+ 263              	.LCFI9:
+ 264              		.cfi_def_cfa_offset 8
+ 265              		.cfi_offset 4, -8
+ 266              		.cfi_offset 14, -4
+ 267 0002 0446     		mov	r4, r0
+  64:Src/ds1307_for_stm32_hal.c **** 	uint8_t controlReg = DS1307_GetRegByte(DS1307_REG_CONTROL);
+ARM GAS  /tmp/ccO29UDV.s 			page 7
+
+
+ 268              		.loc 1 64 2 is_stmt 1 view .LVU40
+ 269              		.loc 1 64 23 is_stmt 0 view .LVU41
+ 270 0004 0720     		movs	r0, #7
+ 271              	.LVL18:
+ 272              		.loc 1 64 23 view .LVU42
+ 273 0006 FFF7FEFF 		bl	DS1307_GetRegByte
+ 274              	.LVL19:
+  65:Src/ds1307_for_stm32_hal.c **** 	uint8_t newControlReg = (controlReg & ~(1 << 4)) | ((mode & 1) << 4);
+ 275              		.loc 1 65 2 is_stmt 1 view .LVU43
+ 276              		.loc 1 65 65 is_stmt 0 view .LVU44
+ 277 000a 2401     		lsls	r4, r4, #4
+ 278              	.LVL20:
+ 279              		.loc 1 65 65 view .LVU45
+ 280 000c 04F01004 		and	r4, r4, #16
+ 281              		.loc 1 65 10 view .LVU46
+ 282 0010 20F01001 		bic	r1, r0, #16
+ 283 0014 2143     		orrs	r1, r1, r4
+ 284              	.LVL21:
+  66:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_CONTROL, newControlReg);
+ 285              		.loc 1 66 2 is_stmt 1 view .LVU47
+ 286 0016 C9B2     		uxtb	r1, r1
+ 287              		.loc 1 66 2 is_stmt 0 view .LVU48
+ 288 0018 0720     		movs	r0, #7
+ 289              	.LVL22:
+ 290              		.loc 1 66 2 view .LVU49
+ 291 001a FFF7FEFF 		bl	DS1307_SetRegByte
+ 292              	.LVL23:
+  67:Src/ds1307_for_stm32_hal.c **** }
+ 293              		.loc 1 67 1 view .LVU50
+ 294 001e 10BD     		pop	{r4, pc}
+ 295              		.cfi_endproc
+ 296              	.LFE70:
+ 298              		.section	.text.DS1307_SetInterruptRate,"ax",%progbits
+ 299              		.align	1
+ 300              		.global	DS1307_SetInterruptRate
+ 301              		.syntax unified
+ 302              		.thumb
+ 303              		.thumb_func
+ 305              	DS1307_SetInterruptRate:
+ 306              	.LVL24:
+ 307              	.LFB71:
+  68:Src/ds1307_for_stm32_hal.c **** 
+  69:Src/ds1307_for_stm32_hal.c **** /**
+  70:Src/ds1307_for_stm32_hal.c ****  * @brief Set square wave output frequency.
+  71:Src/ds1307_for_stm32_hal.c ****  * @param rate DS1307_1HZ (0b00), DS1307_4096HZ (0b01), DS1307_8192HZ (0b10) or DS1307_32768HZ (0b1
+  72:Src/ds1307_for_stm32_hal.c ****  */
+  73:Src/ds1307_for_stm32_hal.c **** void DS1307_SetInterruptRate(DS1307_Rate rate){
+ 308              		.loc 1 73 47 is_stmt 1 view -0
+ 309              		.cfi_startproc
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		.loc 1 73 47 is_stmt 0 view .LVU52
+ 313 0000 10B5     		push	{r4, lr}
+ 314              	.LCFI10:
+ 315              		.cfi_def_cfa_offset 8
+ 316              		.cfi_offset 4, -8
+ 317              		.cfi_offset 14, -4
+ARM GAS  /tmp/ccO29UDV.s 			page 8
+
+
+ 318 0002 0446     		mov	r4, r0
+  74:Src/ds1307_for_stm32_hal.c **** 	uint8_t controlReg = DS1307_GetRegByte(DS1307_REG_CONTROL);
+ 319              		.loc 1 74 2 is_stmt 1 view .LVU53
+ 320              		.loc 1 74 23 is_stmt 0 view .LVU54
+ 321 0004 0720     		movs	r0, #7
+ 322              	.LVL25:
+ 323              		.loc 1 74 23 view .LVU55
+ 324 0006 FFF7FEFF 		bl	DS1307_GetRegByte
+ 325              	.LVL26:
+  75:Src/ds1307_for_stm32_hal.c **** 	uint8_t newControlReg = (controlReg & ~0x03) | rate;
+ 326              		.loc 1 75 2 is_stmt 1 view .LVU56
+  76:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_CONTROL, newControlReg);
+ 327              		.loc 1 76 2 view .LVU57
+ 328 000a 20F00300 		bic	r0, r0, #3
+ 329              	.LVL27:
+ 330              		.loc 1 76 2 is_stmt 0 view .LVU58
+ 331 000e 44EA0001 		orr	r1, r4, r0
+ 332 0012 C9B2     		uxtb	r1, r1
+ 333 0014 0720     		movs	r0, #7
+ 334 0016 FFF7FEFF 		bl	DS1307_SetRegByte
+ 335              	.LVL28:
+  77:Src/ds1307_for_stm32_hal.c **** }
+ 336              		.loc 1 77 1 view .LVU59
+ 337 001a 10BD     		pop	{r4, pc}
+ 338              		.loc 1 77 1 view .LVU60
+ 339              		.cfi_endproc
+ 340              	.LFE71:
+ 342              		.section	.text.DS1307_GetTimeZoneHour,"ax",%progbits
+ 343              		.align	1
+ 344              		.global	DS1307_GetTimeZoneHour
+ 345              		.syntax unified
+ 346              		.thumb
+ 347              		.thumb_func
+ 349              	DS1307_GetTimeZoneHour:
+ 350              	.LFB79:
+  78:Src/ds1307_for_stm32_hal.c **** 
+  79:Src/ds1307_for_stm32_hal.c **** /**
+  80:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the current day of week.
+  81:Src/ds1307_for_stm32_hal.c ****  * @return Days from last Sunday, 0 to 6.
+  82:Src/ds1307_for_stm32_hal.c ****  */
+  83:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetDayOfWeek(void) {
+  84:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_DOW));
+  85:Src/ds1307_for_stm32_hal.c **** }
+  86:Src/ds1307_for_stm32_hal.c **** 
+  87:Src/ds1307_for_stm32_hal.c **** /**
+  88:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the current day of month.
+  89:Src/ds1307_for_stm32_hal.c ****  * @return Day of month, 1 to 31.
+  90:Src/ds1307_for_stm32_hal.c ****  */
+  91:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetDate(void) {
+  92:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_DATE));
+  93:Src/ds1307_for_stm32_hal.c **** }
+  94:Src/ds1307_for_stm32_hal.c **** 
+  95:Src/ds1307_for_stm32_hal.c **** /**
+  96:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the current month.
+  97:Src/ds1307_for_stm32_hal.c ****  * @return Month, 1 to 12.
+  98:Src/ds1307_for_stm32_hal.c ****  */
+  99:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetMonth(void) {
+ARM GAS  /tmp/ccO29UDV.s 			page 9
+
+
+ 100:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_MONTH));
+ 101:Src/ds1307_for_stm32_hal.c **** }
+ 102:Src/ds1307_for_stm32_hal.c **** 
+ 103:Src/ds1307_for_stm32_hal.c **** /**
+ 104:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the current year.
+ 105:Src/ds1307_for_stm32_hal.c ****  * @return Year, 2000 to 2099.
+ 106:Src/ds1307_for_stm32_hal.c ****  */
+ 107:Src/ds1307_for_stm32_hal.c **** uint16_t DS1307_GetYear(void) {
+ 108:Src/ds1307_for_stm32_hal.c **** 	uint16_t cen = DS1307_GetRegByte(DS1307_REG_CENT) * 100;
+ 109:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_YEAR)) + cen;
+ 110:Src/ds1307_for_stm32_hal.c **** }
+ 111:Src/ds1307_for_stm32_hal.c **** 
+ 112:Src/ds1307_for_stm32_hal.c **** /**
+ 113:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the current hour in 24h format.
+ 114:Src/ds1307_for_stm32_hal.c ****  * @return Hour in 24h format, 0 to 23.
+ 115:Src/ds1307_for_stm32_hal.c ****  */
+ 116:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetHour(void) {
+ 117:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_HOUR) & 0x3f);
+ 118:Src/ds1307_for_stm32_hal.c **** }
+ 119:Src/ds1307_for_stm32_hal.c **** 
+ 120:Src/ds1307_for_stm32_hal.c **** /**
+ 121:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the current minute.
+ 122:Src/ds1307_for_stm32_hal.c ****  * @return Minute, 0 to 59.
+ 123:Src/ds1307_for_stm32_hal.c ****  */
+ 124:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetMinute(void) {
+ 125:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_MINUTE));
+ 126:Src/ds1307_for_stm32_hal.c **** }
+ 127:Src/ds1307_for_stm32_hal.c **** 
+ 128:Src/ds1307_for_stm32_hal.c **** /**
+ 129:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the current second. Clock halt bit not included.
+ 130:Src/ds1307_for_stm32_hal.c ****  * @return Second, 0 to 59.
+ 131:Src/ds1307_for_stm32_hal.c ****  */
+ 132:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetSecond(void) {
+ 133:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_SECOND) & 0x7f);
+ 134:Src/ds1307_for_stm32_hal.c **** }
+ 135:Src/ds1307_for_stm32_hal.c **** 
+ 136:Src/ds1307_for_stm32_hal.c **** /**
+ 137:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the stored UTC hour offset.
+ 138:Src/ds1307_for_stm32_hal.c ****  * @note  UTC offset is not updated automatically.
+ 139:Src/ds1307_for_stm32_hal.c ****  * @return UTC hour offset, -12 to 12.
+ 140:Src/ds1307_for_stm32_hal.c ****  */
+ 141:Src/ds1307_for_stm32_hal.c **** int8_t DS1307_GetTimeZoneHour(void) {
+ 351              		.loc 1 141 37 is_stmt 1 view -0
+ 352              		.cfi_startproc
+ 353              		@ args = 0, pretend = 0, frame = 0
+ 354              		@ frame_needed = 0, uses_anonymous_args = 0
+ 355 0000 08B5     		push	{r3, lr}
+ 356              	.LCFI11:
+ 357              		.cfi_def_cfa_offset 8
+ 358              		.cfi_offset 3, -8
+ 359              		.cfi_offset 14, -4
+ 142:Src/ds1307_for_stm32_hal.c **** 	return DS1307_GetRegByte(DS1307_REG_UTC_HR);
+ 360              		.loc 1 142 2 view .LVU62
+ 361              		.loc 1 142 9 is_stmt 0 view .LVU63
+ 362 0002 0820     		movs	r0, #8
+ 363 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 364              	.LVL29:
+ARM GAS  /tmp/ccO29UDV.s 			page 10
+
+
+ 143:Src/ds1307_for_stm32_hal.c **** }
+ 365              		.loc 1 143 1 view .LVU64
+ 366 0008 40B2     		sxtb	r0, r0
+ 367 000a 08BD     		pop	{r3, pc}
+ 368              		.cfi_endproc
+ 369              	.LFE79:
+ 371              		.section	.text.DS1307_GetTimeZoneMin,"ax",%progbits
+ 372              		.align	1
+ 373              		.global	DS1307_GetTimeZoneMin
+ 374              		.syntax unified
+ 375              		.thumb
+ 376              		.thumb_func
+ 378              	DS1307_GetTimeZoneMin:
+ 379              	.LFB80:
+ 144:Src/ds1307_for_stm32_hal.c **** 
+ 145:Src/ds1307_for_stm32_hal.c **** /**
+ 146:Src/ds1307_for_stm32_hal.c ****  * @brief Gets the stored UTC minute offset.
+ 147:Src/ds1307_for_stm32_hal.c ****  * @note  UTC offset is not updated automatically.
+ 148:Src/ds1307_for_stm32_hal.c ****  * @return UTC time zone, 0 to 59.
+ 149:Src/ds1307_for_stm32_hal.c ****  */
+ 150:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetTimeZoneMin(void) {
+ 380              		.loc 1 150 37 is_stmt 1 view -0
+ 381              		.cfi_startproc
+ 382              		@ args = 0, pretend = 0, frame = 0
+ 383              		@ frame_needed = 0, uses_anonymous_args = 0
+ 384 0000 08B5     		push	{r3, lr}
+ 385              	.LCFI12:
+ 386              		.cfi_def_cfa_offset 8
+ 387              		.cfi_offset 3, -8
+ 388              		.cfi_offset 14, -4
+ 151:Src/ds1307_for_stm32_hal.c **** 	return DS1307_GetRegByte(DS1307_REG_UTC_MIN);
+ 389              		.loc 1 151 2 view .LVU66
+ 390              		.loc 1 151 9 is_stmt 0 view .LVU67
+ 391 0002 0920     		movs	r0, #9
+ 392 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 393              	.LVL30:
+ 152:Src/ds1307_for_stm32_hal.c **** }
+ 394              		.loc 1 152 1 view .LVU68
+ 395 0008 08BD     		pop	{r3, pc}
+ 396              		.cfi_endproc
+ 397              	.LFE80:
+ 399              		.section	.text.DS1307_SetTimeZone,"ax",%progbits
+ 400              		.align	1
+ 401              		.global	DS1307_SetTimeZone
+ 402              		.syntax unified
+ 403              		.thumb
+ 404              		.thumb_func
+ 406              	DS1307_SetTimeZone:
+ 407              	.LVL31:
+ 408              	.LFB88:
+ 153:Src/ds1307_for_stm32_hal.c **** 
+ 154:Src/ds1307_for_stm32_hal.c **** /**
+ 155:Src/ds1307_for_stm32_hal.c ****  * @brief Sets the current day of week.
+ 156:Src/ds1307_for_stm32_hal.c ****  * @param dayOfWeek Days since last Sunday, 0 to 6.
+ 157:Src/ds1307_for_stm32_hal.c ****  */
+ 158:Src/ds1307_for_stm32_hal.c **** void DS1307_SetDayOfWeek(uint8_t dayOfWeek) {
+ 159:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_DOW, DS1307_EncodeBCD(dayOfWeek));
+ARM GAS  /tmp/ccO29UDV.s 			page 11
+
+
+ 160:Src/ds1307_for_stm32_hal.c **** }
+ 161:Src/ds1307_for_stm32_hal.c **** 
+ 162:Src/ds1307_for_stm32_hal.c **** /**
+ 163:Src/ds1307_for_stm32_hal.c ****  * @brief Sets the current day of month.
+ 164:Src/ds1307_for_stm32_hal.c ****  * @param date Day of month, 1 to 31.
+ 165:Src/ds1307_for_stm32_hal.c ****  */
+ 166:Src/ds1307_for_stm32_hal.c **** void DS1307_SetDate(uint8_t date) {
+ 167:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_DATE, DS1307_EncodeBCD(date));
+ 168:Src/ds1307_for_stm32_hal.c **** }
+ 169:Src/ds1307_for_stm32_hal.c **** 
+ 170:Src/ds1307_for_stm32_hal.c **** /**
+ 171:Src/ds1307_for_stm32_hal.c ****  * @brief Sets the current month.
+ 172:Src/ds1307_for_stm32_hal.c ****  * @param month Month, 1 to 12.
+ 173:Src/ds1307_for_stm32_hal.c ****  */
+ 174:Src/ds1307_for_stm32_hal.c **** void DS1307_SetMonth(uint8_t month) {
+ 175:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_MONTH, DS1307_EncodeBCD(month));
+ 176:Src/ds1307_for_stm32_hal.c **** }
+ 177:Src/ds1307_for_stm32_hal.c **** 
+ 178:Src/ds1307_for_stm32_hal.c **** /**
+ 179:Src/ds1307_for_stm32_hal.c ****  * @brief Sets the current year.
+ 180:Src/ds1307_for_stm32_hal.c ****  * @param year Year, 2000 to 2099.
+ 181:Src/ds1307_for_stm32_hal.c ****  */
+ 182:Src/ds1307_for_stm32_hal.c **** void DS1307_SetYear(uint16_t year) {
+ 183:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_CENT, year / 100);
+ 184:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_YEAR, DS1307_EncodeBCD(year % 100));
+ 185:Src/ds1307_for_stm32_hal.c **** }
+ 186:Src/ds1307_for_stm32_hal.c **** 
+ 187:Src/ds1307_for_stm32_hal.c **** /**
+ 188:Src/ds1307_for_stm32_hal.c ****  * @brief Sets the current hour, in 24h format.
+ 189:Src/ds1307_for_stm32_hal.c ****  * @param hour_24mode Hour in 24h format, 0 to 23.
+ 190:Src/ds1307_for_stm32_hal.c ****  */
+ 191:Src/ds1307_for_stm32_hal.c **** void DS1307_SetHour(uint8_t hour_24mode) {
+ 192:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_HOUR, DS1307_EncodeBCD(hour_24mode & 0x3f));
+ 193:Src/ds1307_for_stm32_hal.c **** }
+ 194:Src/ds1307_for_stm32_hal.c **** 
+ 195:Src/ds1307_for_stm32_hal.c **** /**
+ 196:Src/ds1307_for_stm32_hal.c ****  * @brief Sets the current minute.
+ 197:Src/ds1307_for_stm32_hal.c ****  * @param minute Minute, 0 to 59.
+ 198:Src/ds1307_for_stm32_hal.c ****  */
+ 199:Src/ds1307_for_stm32_hal.c **** void DS1307_SetMinute(uint8_t minute) {
+ 200:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_MINUTE, DS1307_EncodeBCD(minute));
+ 201:Src/ds1307_for_stm32_hal.c **** }
+ 202:Src/ds1307_for_stm32_hal.c **** 
+ 203:Src/ds1307_for_stm32_hal.c **** /**
+ 204:Src/ds1307_for_stm32_hal.c ****  * @brief Sets the current second.
+ 205:Src/ds1307_for_stm32_hal.c ****  * @param second Second, 0 to 59.
+ 206:Src/ds1307_for_stm32_hal.c ****  */
+ 207:Src/ds1307_for_stm32_hal.c **** void DS1307_SetSecond(uint8_t second) {
+ 208:Src/ds1307_for_stm32_hal.c **** 	uint8_t ch = DS1307_GetClockHalt();
+ 209:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_SECOND, DS1307_EncodeBCD(second | ch));
+ 210:Src/ds1307_for_stm32_hal.c **** }
+ 211:Src/ds1307_for_stm32_hal.c **** 
+ 212:Src/ds1307_for_stm32_hal.c **** /**
+ 213:Src/ds1307_for_stm32_hal.c ****  * @brief Sets UTC offset.
+ 214:Src/ds1307_for_stm32_hal.c ****  * @note  UTC offset is not updated automatically.
+ 215:Src/ds1307_for_stm32_hal.c ****  * @param hr UTC hour offset, -12 to 12.
+ 216:Src/ds1307_for_stm32_hal.c ****  * @param min UTC minute offset, 0 to 59.
+ARM GAS  /tmp/ccO29UDV.s 			page 12
+
+
+ 217:Src/ds1307_for_stm32_hal.c ****  */
+ 218:Src/ds1307_for_stm32_hal.c **** void DS1307_SetTimeZone(int8_t hr, uint8_t min) {
+ 409              		.loc 1 218 49 is_stmt 1 view -0
+ 410              		.cfi_startproc
+ 411              		@ args = 0, pretend = 0, frame = 0
+ 412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 413              		.loc 1 218 49 is_stmt 0 view .LVU70
+ 414 0000 10B5     		push	{r4, lr}
+ 415              	.LCFI13:
+ 416              		.cfi_def_cfa_offset 8
+ 417              		.cfi_offset 4, -8
+ 418              		.cfi_offset 14, -4
+ 419 0002 0C46     		mov	r4, r1
+ 219:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_UTC_HR, hr);
+ 420              		.loc 1 219 2 is_stmt 1 view .LVU71
+ 421 0004 C1B2     		uxtb	r1, r0
+ 422              	.LVL32:
+ 423              		.loc 1 219 2 is_stmt 0 view .LVU72
+ 424 0006 0820     		movs	r0, #8
+ 425              	.LVL33:
+ 426              		.loc 1 219 2 view .LVU73
+ 427 0008 FFF7FEFF 		bl	DS1307_SetRegByte
+ 428              	.LVL34:
+ 220:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_UTC_MIN, min);
+ 429              		.loc 1 220 2 is_stmt 1 view .LVU74
+ 430 000c 2146     		mov	r1, r4
+ 431 000e 0920     		movs	r0, #9
+ 432 0010 FFF7FEFF 		bl	DS1307_SetRegByte
+ 433              	.LVL35:
+ 221:Src/ds1307_for_stm32_hal.c **** }
+ 434              		.loc 1 221 1 is_stmt 0 view .LVU75
+ 435 0014 10BD     		pop	{r4, pc}
+ 436              		.loc 1 221 1 view .LVU76
+ 437              		.cfi_endproc
+ 438              	.LFE88:
+ 440              		.section	.text.DS1307_DecodeBCD,"ax",%progbits
+ 441              		.align	1
+ 442              		.global	DS1307_DecodeBCD
+ 443              		.syntax unified
+ 444              		.thumb
+ 445              		.thumb_func
+ 447              	DS1307_DecodeBCD:
+ 448              	.LVL36:
+ 449              	.LFB89:
+ 222:Src/ds1307_for_stm32_hal.c **** 
+ 223:Src/ds1307_for_stm32_hal.c **** /**
+ 224:Src/ds1307_for_stm32_hal.c ****  * @brief Decodes the raw binary value stored in registers to decimal format.
+ 225:Src/ds1307_for_stm32_hal.c ****  * @param bin Binary-coded decimal value retrieved from register, 0 to 255.
+ 226:Src/ds1307_for_stm32_hal.c ****  * @return Decoded decimal value.
+ 227:Src/ds1307_for_stm32_hal.c ****  */
+ 228:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_DecodeBCD(uint8_t bin) {
+ 450              		.loc 1 228 39 is_stmt 1 view -0
+ 451              		.cfi_startproc
+ 452              		@ args = 0, pretend = 0, frame = 0
+ 453              		@ frame_needed = 0, uses_anonymous_args = 0
+ 454              		@ link register save eliminated.
+ 229:Src/ds1307_for_stm32_hal.c **** 	return (((bin & 0xf0) >> 4) * 10) + (bin & 0x0f);
+ARM GAS  /tmp/ccO29UDV.s 			page 13
+
+
+ 455              		.loc 1 229 2 view .LVU78
+ 456              		.loc 1 229 24 is_stmt 0 view .LVU79
+ 457 0000 0309     		lsrs	r3, r0, #4
+ 458              		.loc 1 229 43 view .LVU80
+ 459 0002 00F00F00 		and	r0, r0, #15
+ 460              	.LVL37:
+ 461              		.loc 1 229 36 view .LVU81
+ 462 0006 03EB8303 		add	r3, r3, r3, lsl #2
+ 463 000a 00EB4300 		add	r0, r0, r3, lsl #1
+ 230:Src/ds1307_for_stm32_hal.c **** }
+ 464              		.loc 1 230 1 view .LVU82
+ 465 000e C0B2     		uxtb	r0, r0
+ 466 0010 7047     		bx	lr
+ 467              		.cfi_endproc
+ 468              	.LFE89:
+ 470              		.section	.text.DS1307_GetDayOfWeek,"ax",%progbits
+ 471              		.align	1
+ 472              		.global	DS1307_GetDayOfWeek
+ 473              		.syntax unified
+ 474              		.thumb
+ 475              		.thumb_func
+ 477              	DS1307_GetDayOfWeek:
+ 478              	.LFB72:
+  83:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_DOW));
+ 479              		.loc 1 83 35 is_stmt 1 view -0
+ 480              		.cfi_startproc
+ 481              		@ args = 0, pretend = 0, frame = 0
+ 482              		@ frame_needed = 0, uses_anonymous_args = 0
+ 483 0000 08B5     		push	{r3, lr}
+ 484              	.LCFI14:
+ 485              		.cfi_def_cfa_offset 8
+ 486              		.cfi_offset 3, -8
+ 487              		.cfi_offset 14, -4
+  84:Src/ds1307_for_stm32_hal.c **** }
+ 488              		.loc 1 84 2 view .LVU84
+  84:Src/ds1307_for_stm32_hal.c **** }
+ 489              		.loc 1 84 9 is_stmt 0 view .LVU85
+ 490 0002 0320     		movs	r0, #3
+ 491 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 492              	.LVL38:
+  84:Src/ds1307_for_stm32_hal.c **** }
+ 493              		.loc 1 84 9 discriminator 1 view .LVU86
+ 494 0008 FFF7FEFF 		bl	DS1307_DecodeBCD
+ 495              	.LVL39:
+  85:Src/ds1307_for_stm32_hal.c **** 
+ 496              		.loc 1 85 1 view .LVU87
+ 497 000c 08BD     		pop	{r3, pc}
+ 498              		.cfi_endproc
+ 499              	.LFE72:
+ 501              		.section	.text.DS1307_GetDate,"ax",%progbits
+ 502              		.align	1
+ 503              		.global	DS1307_GetDate
+ 504              		.syntax unified
+ 505              		.thumb
+ 506              		.thumb_func
+ 508              	DS1307_GetDate:
+ 509              	.LFB73:
+ARM GAS  /tmp/ccO29UDV.s 			page 14
+
+
+  91:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_DATE));
+ 510              		.loc 1 91 30 is_stmt 1 view -0
+ 511              		.cfi_startproc
+ 512              		@ args = 0, pretend = 0, frame = 0
+ 513              		@ frame_needed = 0, uses_anonymous_args = 0
+ 514 0000 08B5     		push	{r3, lr}
+ 515              	.LCFI15:
+ 516              		.cfi_def_cfa_offset 8
+ 517              		.cfi_offset 3, -8
+ 518              		.cfi_offset 14, -4
+  92:Src/ds1307_for_stm32_hal.c **** }
+ 519              		.loc 1 92 2 view .LVU89
+  92:Src/ds1307_for_stm32_hal.c **** }
+ 520              		.loc 1 92 9 is_stmt 0 view .LVU90
+ 521 0002 0420     		movs	r0, #4
+ 522 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 523              	.LVL40:
+  92:Src/ds1307_for_stm32_hal.c **** }
+ 524              		.loc 1 92 9 discriminator 1 view .LVU91
+ 525 0008 FFF7FEFF 		bl	DS1307_DecodeBCD
+ 526              	.LVL41:
+  93:Src/ds1307_for_stm32_hal.c **** 
+ 527              		.loc 1 93 1 view .LVU92
+ 528 000c 08BD     		pop	{r3, pc}
+ 529              		.cfi_endproc
+ 530              	.LFE73:
+ 532              		.section	.text.DS1307_GetMonth,"ax",%progbits
+ 533              		.align	1
+ 534              		.global	DS1307_GetMonth
+ 535              		.syntax unified
+ 536              		.thumb
+ 537              		.thumb_func
+ 539              	DS1307_GetMonth:
+ 540              	.LFB74:
+  99:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_MONTH));
+ 541              		.loc 1 99 31 is_stmt 1 view -0
+ 542              		.cfi_startproc
+ 543              		@ args = 0, pretend = 0, frame = 0
+ 544              		@ frame_needed = 0, uses_anonymous_args = 0
+ 545 0000 08B5     		push	{r3, lr}
+ 546              	.LCFI16:
+ 547              		.cfi_def_cfa_offset 8
+ 548              		.cfi_offset 3, -8
+ 549              		.cfi_offset 14, -4
+ 100:Src/ds1307_for_stm32_hal.c **** }
+ 550              		.loc 1 100 2 view .LVU94
+ 100:Src/ds1307_for_stm32_hal.c **** }
+ 551              		.loc 1 100 9 is_stmt 0 view .LVU95
+ 552 0002 0520     		movs	r0, #5
+ 553 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 554              	.LVL42:
+ 100:Src/ds1307_for_stm32_hal.c **** }
+ 555              		.loc 1 100 9 discriminator 1 view .LVU96
+ 556 0008 FFF7FEFF 		bl	DS1307_DecodeBCD
+ 557              	.LVL43:
+ 101:Src/ds1307_for_stm32_hal.c **** 
+ 558              		.loc 1 101 1 view .LVU97
+ARM GAS  /tmp/ccO29UDV.s 			page 15
+
+
+ 559 000c 08BD     		pop	{r3, pc}
+ 560              		.cfi_endproc
+ 561              	.LFE74:
+ 563              		.section	.text.DS1307_GetYear,"ax",%progbits
+ 564              		.align	1
+ 565              		.global	DS1307_GetYear
+ 566              		.syntax unified
+ 567              		.thumb
+ 568              		.thumb_func
+ 570              	DS1307_GetYear:
+ 571              	.LFB75:
+ 107:Src/ds1307_for_stm32_hal.c **** 	uint16_t cen = DS1307_GetRegByte(DS1307_REG_CENT) * 100;
+ 572              		.loc 1 107 31 is_stmt 1 view -0
+ 573              		.cfi_startproc
+ 574              		@ args = 0, pretend = 0, frame = 0
+ 575              		@ frame_needed = 0, uses_anonymous_args = 0
+ 576 0000 10B5     		push	{r4, lr}
+ 577              	.LCFI17:
+ 578              		.cfi_def_cfa_offset 8
+ 579              		.cfi_offset 4, -8
+ 580              		.cfi_offset 14, -4
+ 108:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_YEAR)) + cen;
+ 581              		.loc 1 108 2 view .LVU99
+ 108:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_YEAR)) + cen;
+ 582              		.loc 1 108 17 is_stmt 0 view .LVU100
+ 583 0002 1020     		movs	r0, #16
+ 584 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 585              	.LVL44:
+ 108:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_YEAR)) + cen;
+ 586              		.loc 1 108 11 discriminator 1 view .LVU101
+ 587 0008 00EB8000 		add	r0, r0, r0, lsl #2
+ 588 000c 00EB8000 		add	r0, r0, r0, lsl #2
+ 589 0010 8400     		lsls	r4, r0, #2
+ 590 0012 A4B2     		uxth	r4, r4
+ 591              	.LVL45:
+ 109:Src/ds1307_for_stm32_hal.c **** }
+ 592              		.loc 1 109 2 is_stmt 1 view .LVU102
+ 109:Src/ds1307_for_stm32_hal.c **** }
+ 593              		.loc 1 109 9 is_stmt 0 view .LVU103
+ 594 0014 0620     		movs	r0, #6
+ 595 0016 FFF7FEFF 		bl	DS1307_GetRegByte
+ 596              	.LVL46:
+ 109:Src/ds1307_for_stm32_hal.c **** }
+ 597              		.loc 1 109 9 discriminator 1 view .LVU104
+ 598 001a FFF7FEFF 		bl	DS1307_DecodeBCD
+ 599              	.LVL47:
+ 109:Src/ds1307_for_stm32_hal.c **** }
+ 600              		.loc 1 109 62 discriminator 2 view .LVU105
+ 601 001e 2044     		add	r0, r0, r4
+ 110:Src/ds1307_for_stm32_hal.c **** 
+ 602              		.loc 1 110 1 view .LVU106
+ 603 0020 80B2     		uxth	r0, r0
+ 604 0022 10BD     		pop	{r4, pc}
+ 110:Src/ds1307_for_stm32_hal.c **** 
+ 605              		.loc 1 110 1 view .LVU107
+ 606              		.cfi_endproc
+ 607              	.LFE75:
+ARM GAS  /tmp/ccO29UDV.s 			page 16
+
+
+ 609              		.section	.text.DS1307_GetHour,"ax",%progbits
+ 610              		.align	1
+ 611              		.global	DS1307_GetHour
+ 612              		.syntax unified
+ 613              		.thumb
+ 614              		.thumb_func
+ 616              	DS1307_GetHour:
+ 617              	.LFB76:
+ 116:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_HOUR) & 0x3f);
+ 618              		.loc 1 116 30 is_stmt 1 view -0
+ 619              		.cfi_startproc
+ 620              		@ args = 0, pretend = 0, frame = 0
+ 621              		@ frame_needed = 0, uses_anonymous_args = 0
+ 622 0000 08B5     		push	{r3, lr}
+ 623              	.LCFI18:
+ 624              		.cfi_def_cfa_offset 8
+ 625              		.cfi_offset 3, -8
+ 626              		.cfi_offset 14, -4
+ 117:Src/ds1307_for_stm32_hal.c **** }
+ 627              		.loc 1 117 2 view .LVU109
+ 117:Src/ds1307_for_stm32_hal.c **** }
+ 628              		.loc 1 117 26 is_stmt 0 view .LVU110
+ 629 0002 0220     		movs	r0, #2
+ 630 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 631              	.LVL48:
+ 117:Src/ds1307_for_stm32_hal.c **** }
+ 632              		.loc 1 117 9 discriminator 1 view .LVU111
+ 633 0008 00F03F00 		and	r0, r0, #63
+ 634 000c FFF7FEFF 		bl	DS1307_DecodeBCD
+ 635              	.LVL49:
+ 118:Src/ds1307_for_stm32_hal.c **** 
+ 636              		.loc 1 118 1 view .LVU112
+ 637 0010 08BD     		pop	{r3, pc}
+ 638              		.cfi_endproc
+ 639              	.LFE76:
+ 641              		.section	.text.DS1307_GetMinute,"ax",%progbits
+ 642              		.align	1
+ 643              		.global	DS1307_GetMinute
+ 644              		.syntax unified
+ 645              		.thumb
+ 646              		.thumb_func
+ 648              	DS1307_GetMinute:
+ 649              	.LFB77:
+ 124:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_MINUTE));
+ 650              		.loc 1 124 32 is_stmt 1 view -0
+ 651              		.cfi_startproc
+ 652              		@ args = 0, pretend = 0, frame = 0
+ 653              		@ frame_needed = 0, uses_anonymous_args = 0
+ 654 0000 08B5     		push	{r3, lr}
+ 655              	.LCFI19:
+ 656              		.cfi_def_cfa_offset 8
+ 657              		.cfi_offset 3, -8
+ 658              		.cfi_offset 14, -4
+ 125:Src/ds1307_for_stm32_hal.c **** }
+ 659              		.loc 1 125 2 view .LVU114
+ 125:Src/ds1307_for_stm32_hal.c **** }
+ 660              		.loc 1 125 9 is_stmt 0 view .LVU115
+ARM GAS  /tmp/ccO29UDV.s 			page 17
+
+
+ 661 0002 0120     		movs	r0, #1
+ 662 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 663              	.LVL50:
+ 125:Src/ds1307_for_stm32_hal.c **** }
+ 664              		.loc 1 125 9 discriminator 1 view .LVU116
+ 665 0008 FFF7FEFF 		bl	DS1307_DecodeBCD
+ 666              	.LVL51:
+ 126:Src/ds1307_for_stm32_hal.c **** 
+ 667              		.loc 1 126 1 view .LVU117
+ 668 000c 08BD     		pop	{r3, pc}
+ 669              		.cfi_endproc
+ 670              	.LFE77:
+ 672              		.section	.text.DS1307_GetSecond,"ax",%progbits
+ 673              		.align	1
+ 674              		.global	DS1307_GetSecond
+ 675              		.syntax unified
+ 676              		.thumb
+ 677              		.thumb_func
+ 679              	DS1307_GetSecond:
+ 680              	.LFB78:
+ 132:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_SECOND) & 0x7f);
+ 681              		.loc 1 132 32 is_stmt 1 view -0
+ 682              		.cfi_startproc
+ 683              		@ args = 0, pretend = 0, frame = 0
+ 684              		@ frame_needed = 0, uses_anonymous_args = 0
+ 685 0000 08B5     		push	{r3, lr}
+ 686              	.LCFI20:
+ 687              		.cfi_def_cfa_offset 8
+ 688              		.cfi_offset 3, -8
+ 689              		.cfi_offset 14, -4
+ 133:Src/ds1307_for_stm32_hal.c **** }
+ 690              		.loc 1 133 2 view .LVU119
+ 133:Src/ds1307_for_stm32_hal.c **** }
+ 691              		.loc 1 133 26 is_stmt 0 view .LVU120
+ 692 0002 0020     		movs	r0, #0
+ 693 0004 FFF7FEFF 		bl	DS1307_GetRegByte
+ 694              	.LVL52:
+ 133:Src/ds1307_for_stm32_hal.c **** }
+ 695              		.loc 1 133 9 discriminator 1 view .LVU121
+ 696 0008 00F07F00 		and	r0, r0, #127
+ 697 000c FFF7FEFF 		bl	DS1307_DecodeBCD
+ 698              	.LVL53:
+ 134:Src/ds1307_for_stm32_hal.c **** 
+ 699              		.loc 1 134 1 view .LVU122
+ 700 0010 08BD     		pop	{r3, pc}
+ 701              		.cfi_endproc
+ 702              	.LFE78:
+ 704              		.section	.text.DS1307_EncodeBCD,"ax",%progbits
+ 705              		.align	1
+ 706              		.global	DS1307_EncodeBCD
+ 707              		.syntax unified
+ 708              		.thumb
+ 709              		.thumb_func
+ 711              	DS1307_EncodeBCD:
+ 712              	.LVL54:
+ 713              	.LFB90:
+ 231:Src/ds1307_for_stm32_hal.c **** 
+ARM GAS  /tmp/ccO29UDV.s 			page 18
+
+
+ 232:Src/ds1307_for_stm32_hal.c **** /**
+ 233:Src/ds1307_for_stm32_hal.c ****  * @brief Encodes a decimal number to binaty-coded decimal for storage in registers.
+ 234:Src/ds1307_for_stm32_hal.c ****  * @param dec Decimal number to encode.
+ 235:Src/ds1307_for_stm32_hal.c ****  * @return Encoded binary-coded decimal value.
+ 236:Src/ds1307_for_stm32_hal.c ****  */
+ 237:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_EncodeBCD(uint8_t dec) {
+ 714              		.loc 1 237 39 is_stmt 1 view -0
+ 715              		.cfi_startproc
+ 716              		@ args = 0, pretend = 0, frame = 0
+ 717              		@ frame_needed = 0, uses_anonymous_args = 0
+ 718              		@ link register save eliminated.
+ 238:Src/ds1307_for_stm32_hal.c **** 	return (dec % 10 + ((dec / 10) << 4));
+ 719              		.loc 1 238 2 view .LVU124
+ 720              		.loc 1 238 33 is_stmt 0 view .LVU125
+ 721 0000 064B     		ldr	r3, .L44
+ 722 0002 A3FB0023 		umull	r2, r3, r3, r0
+ 723 0006 DB08     		lsrs	r3, r3, #3
+ 724 0008 1A01     		lsls	r2, r3, #4
+ 725 000a D2B2     		uxtb	r2, r2
+ 726              		.loc 1 238 19 view .LVU126
+ 727 000c 03EB8303 		add	r3, r3, r3, lsl #2
+ 728 0010 A0EB4300 		sub	r0, r0, r3, lsl #1
+ 729              	.LVL55:
+ 730              		.loc 1 238 19 view .LVU127
+ 731 0014 1044     		add	r0, r0, r2
+ 239:Src/ds1307_for_stm32_hal.c **** }
+ 732              		.loc 1 239 1 view .LVU128
+ 733 0016 C0B2     		uxtb	r0, r0
+ 734 0018 7047     		bx	lr
+ 735              	.L45:
+ 736 001a 00BF     		.align	2
+ 737              	.L44:
+ 738 001c CDCCCCCC 		.word	-858993459
+ 739              		.cfi_endproc
+ 740              	.LFE90:
+ 742              		.section	.text.DS1307_SetDayOfWeek,"ax",%progbits
+ 743              		.align	1
+ 744              		.global	DS1307_SetDayOfWeek
+ 745              		.syntax unified
+ 746              		.thumb
+ 747              		.thumb_func
+ 749              	DS1307_SetDayOfWeek:
+ 750              	.LVL56:
+ 751              	.LFB81:
+ 158:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_DOW, DS1307_EncodeBCD(dayOfWeek));
+ 752              		.loc 1 158 45 is_stmt 1 view -0
+ 753              		.cfi_startproc
+ 754              		@ args = 0, pretend = 0, frame = 0
+ 755              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_DOW, DS1307_EncodeBCD(dayOfWeek));
+ 756              		.loc 1 158 45 is_stmt 0 view .LVU130
+ 757 0000 08B5     		push	{r3, lr}
+ 758              	.LCFI21:
+ 759              		.cfi_def_cfa_offset 8
+ 760              		.cfi_offset 3, -8
+ 761              		.cfi_offset 14, -4
+ 159:Src/ds1307_for_stm32_hal.c **** }
+ARM GAS  /tmp/ccO29UDV.s 			page 19
+
+
+ 762              		.loc 1 159 2 is_stmt 1 view .LVU131
+ 763 0002 FFF7FEFF 		bl	DS1307_EncodeBCD
+ 764              	.LVL57:
+ 159:Src/ds1307_for_stm32_hal.c **** }
+ 765              		.loc 1 159 2 is_stmt 0 view .LVU132
+ 766 0006 0146     		mov	r1, r0
+ 159:Src/ds1307_for_stm32_hal.c **** }
+ 767              		.loc 1 159 2 discriminator 1 view .LVU133
+ 768 0008 0320     		movs	r0, #3
+ 769 000a FFF7FEFF 		bl	DS1307_SetRegByte
+ 770              	.LVL58:
+ 160:Src/ds1307_for_stm32_hal.c **** 
+ 771              		.loc 1 160 1 view .LVU134
+ 772 000e 08BD     		pop	{r3, pc}
+ 773              		.cfi_endproc
+ 774              	.LFE81:
+ 776              		.section	.text.DS1307_SetDate,"ax",%progbits
+ 777              		.align	1
+ 778              		.global	DS1307_SetDate
+ 779              		.syntax unified
+ 780              		.thumb
+ 781              		.thumb_func
+ 783              	DS1307_SetDate:
+ 784              	.LVL59:
+ 785              	.LFB82:
+ 166:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_DATE, DS1307_EncodeBCD(date));
+ 786              		.loc 1 166 35 is_stmt 1 view -0
+ 787              		.cfi_startproc
+ 788              		@ args = 0, pretend = 0, frame = 0
+ 789              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_DATE, DS1307_EncodeBCD(date));
+ 790              		.loc 1 166 35 is_stmt 0 view .LVU136
+ 791 0000 08B5     		push	{r3, lr}
+ 792              	.LCFI22:
+ 793              		.cfi_def_cfa_offset 8
+ 794              		.cfi_offset 3, -8
+ 795              		.cfi_offset 14, -4
+ 167:Src/ds1307_for_stm32_hal.c **** }
+ 796              		.loc 1 167 2 is_stmt 1 view .LVU137
+ 797 0002 FFF7FEFF 		bl	DS1307_EncodeBCD
+ 798              	.LVL60:
+ 167:Src/ds1307_for_stm32_hal.c **** }
+ 799              		.loc 1 167 2 is_stmt 0 view .LVU138
+ 800 0006 0146     		mov	r1, r0
+ 167:Src/ds1307_for_stm32_hal.c **** }
+ 801              		.loc 1 167 2 discriminator 1 view .LVU139
+ 802 0008 0420     		movs	r0, #4
+ 803 000a FFF7FEFF 		bl	DS1307_SetRegByte
+ 804              	.LVL61:
+ 168:Src/ds1307_for_stm32_hal.c **** 
+ 805              		.loc 1 168 1 view .LVU140
+ 806 000e 08BD     		pop	{r3, pc}
+ 807              		.cfi_endproc
+ 808              	.LFE82:
+ 810              		.section	.text.DS1307_SetMonth,"ax",%progbits
+ 811              		.align	1
+ 812              		.global	DS1307_SetMonth
+ARM GAS  /tmp/ccO29UDV.s 			page 20
+
+
+ 813              		.syntax unified
+ 814              		.thumb
+ 815              		.thumb_func
+ 817              	DS1307_SetMonth:
+ 818              	.LVL62:
+ 819              	.LFB83:
+ 174:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_MONTH, DS1307_EncodeBCD(month));
+ 820              		.loc 1 174 37 is_stmt 1 view -0
+ 821              		.cfi_startproc
+ 822              		@ args = 0, pretend = 0, frame = 0
+ 823              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_MONTH, DS1307_EncodeBCD(month));
+ 824              		.loc 1 174 37 is_stmt 0 view .LVU142
+ 825 0000 08B5     		push	{r3, lr}
+ 826              	.LCFI23:
+ 827              		.cfi_def_cfa_offset 8
+ 828              		.cfi_offset 3, -8
+ 829              		.cfi_offset 14, -4
+ 175:Src/ds1307_for_stm32_hal.c **** }
+ 830              		.loc 1 175 2 is_stmt 1 view .LVU143
+ 831 0002 FFF7FEFF 		bl	DS1307_EncodeBCD
+ 832              	.LVL63:
+ 175:Src/ds1307_for_stm32_hal.c **** }
+ 833              		.loc 1 175 2 is_stmt 0 view .LVU144
+ 834 0006 0146     		mov	r1, r0
+ 175:Src/ds1307_for_stm32_hal.c **** }
+ 835              		.loc 1 175 2 discriminator 1 view .LVU145
+ 836 0008 0520     		movs	r0, #5
+ 837 000a FFF7FEFF 		bl	DS1307_SetRegByte
+ 838              	.LVL64:
+ 176:Src/ds1307_for_stm32_hal.c **** 
+ 839              		.loc 1 176 1 view .LVU146
+ 840 000e 08BD     		pop	{r3, pc}
+ 841              		.cfi_endproc
+ 842              	.LFE83:
+ 844              		.section	.text.DS1307_SetYear,"ax",%progbits
+ 845              		.align	1
+ 846              		.global	DS1307_SetYear
+ 847              		.syntax unified
+ 848              		.thumb
+ 849              		.thumb_func
+ 851              	DS1307_SetYear:
+ 852              	.LVL65:
+ 853              	.LFB84:
+ 182:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_CENT, year / 100);
+ 854              		.loc 1 182 36 is_stmt 1 view -0
+ 855              		.cfi_startproc
+ 856              		@ args = 0, pretend = 0, frame = 0
+ 857              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_CENT, year / 100);
+ 858              		.loc 1 182 36 is_stmt 0 view .LVU148
+ 859 0000 38B5     		push	{r3, r4, r5, lr}
+ 860              	.LCFI24:
+ 861              		.cfi_def_cfa_offset 16
+ 862              		.cfi_offset 3, -16
+ 863              		.cfi_offset 4, -12
+ 864              		.cfi_offset 5, -8
+ARM GAS  /tmp/ccO29UDV.s 			page 21
+
+
+ 865              		.cfi_offset 14, -4
+ 866 0002 0446     		mov	r4, r0
+ 183:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_YEAR, DS1307_EncodeBCD(year % 100));
+ 867              		.loc 1 183 2 is_stmt 1 view .LVU149
+ 868 0004 0949     		ldr	r1, .L54
+ 869 0006 A1FB0031 		umull	r3, r1, r1, r0
+ 870 000a 4D09     		lsrs	r5, r1, #5
+ 871 000c C1F34711 		ubfx	r1, r1, #5, #8
+ 872 0010 1020     		movs	r0, #16
+ 873              	.LVL66:
+ 183:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_YEAR, DS1307_EncodeBCD(year % 100));
+ 874              		.loc 1 183 2 is_stmt 0 view .LVU150
+ 875 0012 FFF7FEFF 		bl	DS1307_SetRegByte
+ 876              	.LVL67:
+ 184:Src/ds1307_for_stm32_hal.c **** }
+ 877              		.loc 1 184 2 is_stmt 1 view .LVU151
+ 878 0016 6423     		movs	r3, #100
+ 879 0018 03FB1540 		mls	r0, r3, r5, r4
+ 880 001c C0B2     		uxtb	r0, r0
+ 881 001e FFF7FEFF 		bl	DS1307_EncodeBCD
+ 882              	.LVL68:
+ 883 0022 0146     		mov	r1, r0
+ 184:Src/ds1307_for_stm32_hal.c **** }
+ 884              		.loc 1 184 2 is_stmt 0 discriminator 1 view .LVU152
+ 885 0024 0620     		movs	r0, #6
+ 886 0026 FFF7FEFF 		bl	DS1307_SetRegByte
+ 887              	.LVL69:
+ 185:Src/ds1307_for_stm32_hal.c **** 
+ 888              		.loc 1 185 1 view .LVU153
+ 889 002a 38BD     		pop	{r3, r4, r5, pc}
+ 890              	.LVL70:
+ 891              	.L55:
+ 185:Src/ds1307_for_stm32_hal.c **** 
+ 892              		.loc 1 185 1 view .LVU154
+ 893              		.align	2
+ 894              	.L54:
+ 895 002c 1F85EB51 		.word	1374389535
+ 896              		.cfi_endproc
+ 897              	.LFE84:
+ 899              		.section	.text.DS1307_SetHour,"ax",%progbits
+ 900              		.align	1
+ 901              		.global	DS1307_SetHour
+ 902              		.syntax unified
+ 903              		.thumb
+ 904              		.thumb_func
+ 906              	DS1307_SetHour:
+ 907              	.LVL71:
+ 908              	.LFB85:
+ 191:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_HOUR, DS1307_EncodeBCD(hour_24mode & 0x3f));
+ 909              		.loc 1 191 42 is_stmt 1 view -0
+ 910              		.cfi_startproc
+ 911              		@ args = 0, pretend = 0, frame = 0
+ 912              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_HOUR, DS1307_EncodeBCD(hour_24mode & 0x3f));
+ 913              		.loc 1 191 42 is_stmt 0 view .LVU156
+ 914 0000 08B5     		push	{r3, lr}
+ 915              	.LCFI25:
+ARM GAS  /tmp/ccO29UDV.s 			page 22
+
+
+ 916              		.cfi_def_cfa_offset 8
+ 917              		.cfi_offset 3, -8
+ 918              		.cfi_offset 14, -4
+ 192:Src/ds1307_for_stm32_hal.c **** }
+ 919              		.loc 1 192 2 is_stmt 1 view .LVU157
+ 920 0002 00F03F00 		and	r0, r0, #63
+ 921              	.LVL72:
+ 192:Src/ds1307_for_stm32_hal.c **** }
+ 922              		.loc 1 192 2 is_stmt 0 view .LVU158
+ 923 0006 FFF7FEFF 		bl	DS1307_EncodeBCD
+ 924              	.LVL73:
+ 925 000a 0146     		mov	r1, r0
+ 192:Src/ds1307_for_stm32_hal.c **** }
+ 926              		.loc 1 192 2 discriminator 1 view .LVU159
+ 927 000c 0220     		movs	r0, #2
+ 928 000e FFF7FEFF 		bl	DS1307_SetRegByte
+ 929              	.LVL74:
+ 193:Src/ds1307_for_stm32_hal.c **** 
+ 930              		.loc 1 193 1 view .LVU160
+ 931 0012 08BD     		pop	{r3, pc}
+ 932              		.cfi_endproc
+ 933              	.LFE85:
+ 935              		.section	.text.DS1307_SetMinute,"ax",%progbits
+ 936              		.align	1
+ 937              		.global	DS1307_SetMinute
+ 938              		.syntax unified
+ 939              		.thumb
+ 940              		.thumb_func
+ 942              	DS1307_SetMinute:
+ 943              	.LVL75:
+ 944              	.LFB86:
+ 199:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_MINUTE, DS1307_EncodeBCD(minute));
+ 945              		.loc 1 199 39 is_stmt 1 view -0
+ 946              		.cfi_startproc
+ 947              		@ args = 0, pretend = 0, frame = 0
+ 948              		@ frame_needed = 0, uses_anonymous_args = 0
+ 199:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_MINUTE, DS1307_EncodeBCD(minute));
+ 949              		.loc 1 199 39 is_stmt 0 view .LVU162
+ 950 0000 08B5     		push	{r3, lr}
+ 951              	.LCFI26:
+ 952              		.cfi_def_cfa_offset 8
+ 953              		.cfi_offset 3, -8
+ 954              		.cfi_offset 14, -4
+ 200:Src/ds1307_for_stm32_hal.c **** }
+ 955              		.loc 1 200 2 is_stmt 1 view .LVU163
+ 956 0002 FFF7FEFF 		bl	DS1307_EncodeBCD
+ 957              	.LVL76:
+ 200:Src/ds1307_for_stm32_hal.c **** }
+ 958              		.loc 1 200 2 is_stmt 0 view .LVU164
+ 959 0006 0146     		mov	r1, r0
+ 200:Src/ds1307_for_stm32_hal.c **** }
+ 960              		.loc 1 200 2 discriminator 1 view .LVU165
+ 961 0008 0120     		movs	r0, #1
+ 962 000a FFF7FEFF 		bl	DS1307_SetRegByte
+ 963              	.LVL77:
+ 201:Src/ds1307_for_stm32_hal.c **** 
+ 964              		.loc 1 201 1 view .LVU166
+ARM GAS  /tmp/ccO29UDV.s 			page 23
+
+
+ 965 000e 08BD     		pop	{r3, pc}
+ 966              		.cfi_endproc
+ 967              	.LFE86:
+ 969              		.section	.text.DS1307_SetSecond,"ax",%progbits
+ 970              		.align	1
+ 971              		.global	DS1307_SetSecond
+ 972              		.syntax unified
+ 973              		.thumb
+ 974              		.thumb_func
+ 976              	DS1307_SetSecond:
+ 977              	.LVL78:
+ 978              	.LFB87:
+ 207:Src/ds1307_for_stm32_hal.c **** 	uint8_t ch = DS1307_GetClockHalt();
+ 979              		.loc 1 207 39 is_stmt 1 view -0
+ 980              		.cfi_startproc
+ 981              		@ args = 0, pretend = 0, frame = 0
+ 982              		@ frame_needed = 0, uses_anonymous_args = 0
+ 207:Src/ds1307_for_stm32_hal.c **** 	uint8_t ch = DS1307_GetClockHalt();
+ 983              		.loc 1 207 39 is_stmt 0 view .LVU168
+ 984 0000 10B5     		push	{r4, lr}
+ 985              	.LCFI27:
+ 986              		.cfi_def_cfa_offset 8
+ 987              		.cfi_offset 4, -8
+ 988              		.cfi_offset 14, -4
+ 989 0002 0446     		mov	r4, r0
+ 208:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_SECOND, DS1307_EncodeBCD(second | ch));
+ 990              		.loc 1 208 2 is_stmt 1 view .LVU169
+ 208:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_SECOND, DS1307_EncodeBCD(second | ch));
+ 991              		.loc 1 208 15 is_stmt 0 view .LVU170
+ 992 0004 FFF7FEFF 		bl	DS1307_GetClockHalt
+ 993              	.LVL79:
+ 209:Src/ds1307_for_stm32_hal.c **** }
+ 994              		.loc 1 209 2 is_stmt 1 view .LVU171
+ 995 0008 2043     		orrs	r0, r0, r4
+ 996              	.LVL80:
+ 209:Src/ds1307_for_stm32_hal.c **** }
+ 997              		.loc 1 209 2 is_stmt 0 view .LVU172
+ 998 000a C0B2     		uxtb	r0, r0
+ 999 000c FFF7FEFF 		bl	DS1307_EncodeBCD
+ 1000              	.LVL81:
+ 1001 0010 0146     		mov	r1, r0
+ 209:Src/ds1307_for_stm32_hal.c **** }
+ 1002              		.loc 1 209 2 discriminator 1 view .LVU173
+ 1003 0012 0020     		movs	r0, #0
+ 1004 0014 FFF7FEFF 		bl	DS1307_SetRegByte
+ 1005              	.LVL82:
+ 210:Src/ds1307_for_stm32_hal.c **** 
+ 1006              		.loc 1 210 1 view .LVU174
+ 1007 0018 10BD     		pop	{r4, pc}
+ 210:Src/ds1307_for_stm32_hal.c **** 
+ 1008              		.loc 1 210 1 view .LVU175
+ 1009              		.cfi_endproc
+ 1010              	.LFE87:
+ 1012              		.global	_ds1307_ui2c
+ 1013              		.section	.bss._ds1307_ui2c,"aw",%nobits
+ 1014              		.align	2
+ 1017              	_ds1307_ui2c:
+ARM GAS  /tmp/ccO29UDV.s 			page 24
+
+
+ 1018 0000 00000000 		.space	4
+ 1019              		.text
+ 1020              	.Letext0:
+ 1021              		.file 2 "/usr/arm-none-eabi/include/machine/_default_types.h"
+ 1022              		.file 3 "/usr/arm-none-eabi/include/sys/_stdint.h"
+ 1023              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 1024              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 1025              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 1026              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 1027              		.file 8 "Inc/ds1307_for_stm32_hal.h"
+ARM GAS  /tmp/ccO29UDV.s 			page 25
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 ds1307_for_stm32_hal.c
+     /tmp/ccO29UDV.s:19     .text.DS1307_SetRegByte:00000000 $t
+     /tmp/ccO29UDV.s:25     .text.DS1307_SetRegByte:00000000 DS1307_SetRegByte
+     /tmp/ccO29UDV.s:67     .text.DS1307_SetRegByte:00000028 $d
+     /tmp/ccO29UDV.s:1017   .bss._ds1307_ui2c:00000000 _ds1307_ui2c
+     /tmp/ccO29UDV.s:72     .text.DS1307_GetRegByte:00000000 $t
+     /tmp/ccO29UDV.s:78     .text.DS1307_GetRegByte:00000000 DS1307_GetRegByte
+     /tmp/ccO29UDV.s:128    .text.DS1307_GetRegByte:00000038 $d
+     /tmp/ccO29UDV.s:133    .text.DS1307_SetClockHalt:00000000 $t
+     /tmp/ccO29UDV.s:139    .text.DS1307_SetClockHalt:00000000 DS1307_SetClockHalt
+     /tmp/ccO29UDV.s:180    .text.DS1307_Init:00000000 $t
+     /tmp/ccO29UDV.s:186    .text.DS1307_Init:00000000 DS1307_Init
+     /tmp/ccO29UDV.s:214    .text.DS1307_Init:00000010 $d
+     /tmp/ccO29UDV.s:219    .text.DS1307_GetClockHalt:00000000 $t
+     /tmp/ccO29UDV.s:225    .text.DS1307_GetClockHalt:00000000 DS1307_GetClockHalt
+     /tmp/ccO29UDV.s:248    .text.DS1307_SetEnableSquareWave:00000000 $t
+     /tmp/ccO29UDV.s:254    .text.DS1307_SetEnableSquareWave:00000000 DS1307_SetEnableSquareWave
+     /tmp/ccO29UDV.s:299    .text.DS1307_SetInterruptRate:00000000 $t
+     /tmp/ccO29UDV.s:305    .text.DS1307_SetInterruptRate:00000000 DS1307_SetInterruptRate
+     /tmp/ccO29UDV.s:343    .text.DS1307_GetTimeZoneHour:00000000 $t
+     /tmp/ccO29UDV.s:349    .text.DS1307_GetTimeZoneHour:00000000 DS1307_GetTimeZoneHour
+     /tmp/ccO29UDV.s:372    .text.DS1307_GetTimeZoneMin:00000000 $t
+     /tmp/ccO29UDV.s:378    .text.DS1307_GetTimeZoneMin:00000000 DS1307_GetTimeZoneMin
+     /tmp/ccO29UDV.s:400    .text.DS1307_SetTimeZone:00000000 $t
+     /tmp/ccO29UDV.s:406    .text.DS1307_SetTimeZone:00000000 DS1307_SetTimeZone
+     /tmp/ccO29UDV.s:441    .text.DS1307_DecodeBCD:00000000 $t
+     /tmp/ccO29UDV.s:447    .text.DS1307_DecodeBCD:00000000 DS1307_DecodeBCD
+     /tmp/ccO29UDV.s:471    .text.DS1307_GetDayOfWeek:00000000 $t
+     /tmp/ccO29UDV.s:477    .text.DS1307_GetDayOfWeek:00000000 DS1307_GetDayOfWeek
+     /tmp/ccO29UDV.s:502    .text.DS1307_GetDate:00000000 $t
+     /tmp/ccO29UDV.s:508    .text.DS1307_GetDate:00000000 DS1307_GetDate
+     /tmp/ccO29UDV.s:533    .text.DS1307_GetMonth:00000000 $t
+     /tmp/ccO29UDV.s:539    .text.DS1307_GetMonth:00000000 DS1307_GetMonth
+     /tmp/ccO29UDV.s:564    .text.DS1307_GetYear:00000000 $t
+     /tmp/ccO29UDV.s:570    .text.DS1307_GetYear:00000000 DS1307_GetYear
+     /tmp/ccO29UDV.s:610    .text.DS1307_GetHour:00000000 $t
+     /tmp/ccO29UDV.s:616    .text.DS1307_GetHour:00000000 DS1307_GetHour
+     /tmp/ccO29UDV.s:642    .text.DS1307_GetMinute:00000000 $t
+     /tmp/ccO29UDV.s:648    .text.DS1307_GetMinute:00000000 DS1307_GetMinute
+     /tmp/ccO29UDV.s:673    .text.DS1307_GetSecond:00000000 $t
+     /tmp/ccO29UDV.s:679    .text.DS1307_GetSecond:00000000 DS1307_GetSecond
+     /tmp/ccO29UDV.s:705    .text.DS1307_EncodeBCD:00000000 $t
+     /tmp/ccO29UDV.s:711    .text.DS1307_EncodeBCD:00000000 DS1307_EncodeBCD
+     /tmp/ccO29UDV.s:738    .text.DS1307_EncodeBCD:0000001c $d
+     /tmp/ccO29UDV.s:743    .text.DS1307_SetDayOfWeek:00000000 $t
+     /tmp/ccO29UDV.s:749    .text.DS1307_SetDayOfWeek:00000000 DS1307_SetDayOfWeek
+     /tmp/ccO29UDV.s:777    .text.DS1307_SetDate:00000000 $t
+     /tmp/ccO29UDV.s:783    .text.DS1307_SetDate:00000000 DS1307_SetDate
+     /tmp/ccO29UDV.s:811    .text.DS1307_SetMonth:00000000 $t
+     /tmp/ccO29UDV.s:817    .text.DS1307_SetMonth:00000000 DS1307_SetMonth
+     /tmp/ccO29UDV.s:845    .text.DS1307_SetYear:00000000 $t
+     /tmp/ccO29UDV.s:851    .text.DS1307_SetYear:00000000 DS1307_SetYear
+     /tmp/ccO29UDV.s:895    .text.DS1307_SetYear:0000002c $d
+     /tmp/ccO29UDV.s:900    .text.DS1307_SetHour:00000000 $t
+     /tmp/ccO29UDV.s:906    .text.DS1307_SetHour:00000000 DS1307_SetHour
+     /tmp/ccO29UDV.s:936    .text.DS1307_SetMinute:00000000 $t
+ARM GAS  /tmp/ccO29UDV.s 			page 26
+
+
+     /tmp/ccO29UDV.s:942    .text.DS1307_SetMinute:00000000 DS1307_SetMinute
+     /tmp/ccO29UDV.s:970    .text.DS1307_SetSecond:00000000 $t
+     /tmp/ccO29UDV.s:976    .text.DS1307_SetSecond:00000000 DS1307_SetSecond
+     /tmp/ccO29UDV.s:1014   .bss._ds1307_ui2c:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_I2C_Master_Transmit
+HAL_I2C_Master_Receive
