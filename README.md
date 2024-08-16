@@ -32,7 +32,11 @@ https://github.com/user-attachments/assets/e21475a4-c1d6-4625-b237-10e0a6651410
 
 
 ### TFT , SD
-  - Tạm chưa có video demo nhưng đã test qua và hoạt động bình thường bao gồm cả TFT và thẻ SD 
+  - Tạm chưa có video demo của thẻ SD nhưng đã test qua và hoạt động bình thường bao gồm cả TFT và thẻ SD 
+
+
+https://github.com/user-attachments/assets/f30f32e9-75a5-45e3-92c9-6646749988c7
+
 
 ### Buzzer
   - Tạm chưa có video demo nhưng đã test qua và hoạt động bình thường
