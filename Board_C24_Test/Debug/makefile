@@ -9,6 +9,10 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include Middlewares/Third_Party/FatFs/src/option/subdir.mk
+-include Middlewares/Third_Party/FatFs/src/subdir.mk
+-include FATFS/Target/subdir.mk
+-include FATFS/App/subdir.mk
 -include Drivers/STM32F1xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
@@ -61,7 +65,7 @@ main-build: Board_C24_Test.elf secondary-outputs
 
 # Tool invocations
 Board_C24_Test.elf Board_C24_Test.map: $(OBJS) $(USER_OBJS) /home/crypt/STM32CubeIDE/workspace_1.16.0/Board_C24_Test/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Board_C24_Test.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/crypt/STM32CubeIDE/workspace_1.16.0/Board_C24_Test/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Board_C24_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "Board_C24_Test.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/crypt/STM32CubeIDE/workspace_1.16.0/Board_C24_Test/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Board_C24_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

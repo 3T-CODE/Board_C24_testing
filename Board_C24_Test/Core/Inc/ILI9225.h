@@ -21,13 +21,19 @@ extern "C" {
 
 	//STM32 library for your particular microcontroller
 #include"stm32f1xx.h"
-#include"spi.h"
+#include "main.h"
 
     //Hard-coded dimensions of the display
     #define WIDTH       220
     #define HEIGHT      176
     #define LANDSCAPE   1
-    //SPI_HandleTypeDef hspi2;
+
+	extern SPI_HandleTypeDef hspi1;
+	extern SPI_HandleTypeDef hspi2;
+
+	#ifndef ILI9225_SPI_PORT
+	#define ILI9225_SPI_PORT        hspi1
+	#endif
 
     /* ILI9225 LCD Registers */
     #define ILI9225_DRIVER_OUTPUT_CTRL      (0x01u)  // Driver Output Control
