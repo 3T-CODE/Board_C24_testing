@@ -32,10 +32,14 @@ https://github.com/user-attachments/assets/e21475a4-c1d6-4625-b237-10e0a6651410
 
 
 ### TFT , SD
-  - Tạm chưa có video demo của thẻ SD nhưng đã test qua và hoạt động bình thường bao gồm cả TFT và thẻ SD 
+  - Đã test qua và hoạt động bình thường bao gồm cả TFT và thẻ SD 
 
 
 https://github.com/user-attachments/assets/f30f32e9-75a5-45e3-92c9-6646749988c7
+
+
+https://github.com/user-attachments/assets/3b9b8720-baa0-49c1-a17a-0d1e90820bdf
+
 
 
 ### Buzzer
@@ -44,6 +48,10 @@ https://github.com/user-attachments/assets/f30f32e9-75a5-45e3-92c9-6646749988c7
 ### HC05
   - HC05 hoạt động bình thường nhưng ký hiệu trên board bị sai 
   
+
+https://github.com/user-attachments/assets/946d8c8c-7efa-4105-867f-b7c1c30bc5ef
+
+
   ![7bee6f7779b8dde684a9](https://github.com/user-attachments/assets/641131f6-7fa7-41f3-86e0-e5adf9844518)
 
 ### Esp32 
