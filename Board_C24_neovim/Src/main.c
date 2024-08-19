@@ -51,6 +51,16 @@
 
 /* USER CODE BEGIN PV */
 const char *DAYS_OF_WEEK[7] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+	uint8_t date = 0;
+	uint8_t	month = 0;
+	uint16_t year = 0;
+	uint8_t	dow = 0;
+	uint8_t	hour = 0;
+	uint8_t	minute = 0;
+	uint8_t	second = 0;
+	uint8_t	zone_hr = 0;
+	uint8_t	zone_min = 0;
+	char ds_buffer[100] = { 0 };
 MPU6050_t MPU6050;
 /* USER CODE END PV */
 
@@ -60,6 +70,8 @@ void SystemClock_Config(void);
 void test_led();
 void test_ds1307();
 void button_test();
+void buzzer_test();
+void mpu6050_test();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -84,7 +96,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-    DS1307_Init(&hi2c1);
+    /*DS1307_Init(&hi2c1);*/
   /* To test leap year correction. */
    	DS1307_SetTimeZone(+8, 00);
    	DS1307_SetDate(29);
@@ -112,7 +124,17 @@ int main(void)
   MX_I2C2_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  while (MPU6050_Init(&hi2c2) == 1);
+  /*while (MPU6050_Init(&hi2c2) == 1);*/ //Uncomment when use MPU6050 
+  DS1307_Init(&hi2c2);
+  	/* To test leap year correction. */
+	DS1307_SetTimeZone(+8, 00);
+	DS1307_SetDate(18);
+	DS1307_SetMonth(8);
+	DS1307_SetYear(2024);
+	DS1307_SetDayOfWeek(7);
+	DS1307_SetHour(1);
+	DS1307_SetMinute(1);
+	DS1307_SetSecond(30);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,6 +144,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+      test_led();
+      test_ds1307();
  	 	  HAL_Delay (100);
   }
   /* USER CODE END 3 */
@@ -197,11 +222,11 @@ void test_ds1307()
    	uint8_t second = DS1307_GetSecond();
    	int8_t zone_hr = DS1307_GetTimeZoneHour();
    	uint8_t zone_min = DS1307_GetTimeZoneMin();
-   	char buffer[100] = { 0 };
-		sprintf(buffer, "ISO8601 FORMAT: %04d-%02d-%02dT%02d:%02d:%02d%+03d:%02d \n \r",
-				year, month, date, hour, minute, second, zone_hr, zone_min);
+		sprintf(ds_buffer, "ISO8601 FORMAT: %04d-%02d-%02dT%02d:%02d:%02d%+03d:%02d \n \r",
+				    year, month, date, hour, minute, second, zone_hr, zone_min);
 		/* May show warning below. Ignore and proceed. */
-	  HAL_UART_Transmit(&huart1, buffer, strlen(buffer), 1000);
+    
+	  HAL_UART_Transmit(&huart1, ds_buffer, strlen(ds_buffer), 1000);
 }
 
 void button_test()
@@ -217,7 +242,7 @@ void button_test()
 
 void buzzer_test()
 {
-    TIM2 -> CCR1 = 300;
+    TIM2 -> CCR1 = 50;
 
 }
 

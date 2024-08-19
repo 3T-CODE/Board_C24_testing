@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccO29UDV.s 			page 1
+ARM GAS  /tmp/ccSk4RFA.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
   29:Src/ds1307_for_stm32_hal.c **** /**
   30:Src/ds1307_for_stm32_hal.c ****  * @brief Gets clock halt bit.
   31:Src/ds1307_for_stm32_hal.c ****  * @return Clock halt bit, 0 or 1.
-ARM GAS  /tmp/ccO29UDV.s 			page 2
+ARM GAS  /tmp/ccSk4RFA.s 			page 2
 
 
   32:Src/ds1307_for_stm32_hal.c ****  */
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
   68              		.cfi_endproc
   69              	.LFE68:
   71              		.section	.text.DS1307_GetRegByte,"ax",%progbits
-ARM GAS  /tmp/ccO29UDV.s 			page 3
+ARM GAS  /tmp/ccSk4RFA.s 			page 3
 
 
   72              		.align	1
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
   56:Src/ds1307_for_stm32_hal.c **** 	return val;
  117              		.loc 1 56 2 view .LVU14
   57:Src/ds1307_for_stm32_hal.c **** }
-ARM GAS  /tmp/ccO29UDV.s 			page 4
+ARM GAS  /tmp/ccSk4RFA.s 			page 4
 
 
  118              		.loc 1 57 1 is_stmt 0 view .LVU15
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  166              	.LVL11:
   26:Src/ds1307_for_stm32_hal.c **** }
  167              		.loc 1 26 2 discriminator 1 view .LVU24
-ARM GAS  /tmp/ccO29UDV.s 			page 5
+ARM GAS  /tmp/ccSk4RFA.s 			page 5
 
 
  168 000e 00F07F01 		and	r1, r0, #127
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  215              		.cfi_endproc
  216              	.LFE65:
  218              		.section	.text.DS1307_GetClockHalt,"ax",%progbits
-ARM GAS  /tmp/ccO29UDV.s 			page 6
+ARM GAS  /tmp/ccSk4RFA.s 			page 6
 
 
  219              		.align	1
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  266              		.cfi_offset 14, -4
  267 0002 0446     		mov	r4, r0
   64:Src/ds1307_for_stm32_hal.c **** 	uint8_t controlReg = DS1307_GetRegByte(DS1307_REG_CONTROL);
-ARM GAS  /tmp/ccO29UDV.s 			page 7
+ARM GAS  /tmp/ccSk4RFA.s 			page 7
 
 
  268              		.loc 1 64 2 is_stmt 1 view .LVU40
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  315              		.cfi_def_cfa_offset 8
  316              		.cfi_offset 4, -8
  317              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccO29UDV.s 			page 8
+ARM GAS  /tmp/ccSk4RFA.s 			page 8
 
 
  318 0002 0446     		mov	r4, r0
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
   97:Src/ds1307_for_stm32_hal.c ****  * @return Month, 1 to 12.
   98:Src/ds1307_for_stm32_hal.c ****  */
   99:Src/ds1307_for_stm32_hal.c **** uint8_t DS1307_GetMonth(void) {
-ARM GAS  /tmp/ccO29UDV.s 			page 9
+ARM GAS  /tmp/ccSk4RFA.s 			page 9
 
 
  100:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_MONTH));
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  362 0002 0820     		movs	r0, #8
  363 0004 FFF7FEFF 		bl	DS1307_GetRegByte
  364              	.LVL29:
-ARM GAS  /tmp/ccO29UDV.s 			page 10
+ARM GAS  /tmp/ccSk4RFA.s 			page 10
 
 
  143:Src/ds1307_for_stm32_hal.c **** }
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  157:Src/ds1307_for_stm32_hal.c ****  */
  158:Src/ds1307_for_stm32_hal.c **** void DS1307_SetDayOfWeek(uint8_t dayOfWeek) {
  159:Src/ds1307_for_stm32_hal.c **** 	DS1307_SetRegByte(DS1307_REG_DOW, DS1307_EncodeBCD(dayOfWeek));
-ARM GAS  /tmp/ccO29UDV.s 			page 11
+ARM GAS  /tmp/ccSk4RFA.s 			page 11
 
 
  160:Src/ds1307_for_stm32_hal.c **** }
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  214:Src/ds1307_for_stm32_hal.c ****  * @note  UTC offset is not updated automatically.
  215:Src/ds1307_for_stm32_hal.c ****  * @param hr UTC hour offset, -12 to 12.
  216:Src/ds1307_for_stm32_hal.c ****  * @param min UTC minute offset, 0 to 59.
-ARM GAS  /tmp/ccO29UDV.s 			page 12
+ARM GAS  /tmp/ccSk4RFA.s 			page 12
 
 
  217:Src/ds1307_for_stm32_hal.c ****  */
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  453              		@ frame_needed = 0, uses_anonymous_args = 0
  454              		@ link register save eliminated.
  229:Src/ds1307_for_stm32_hal.c **** 	return (((bin & 0xf0) >> 4) * 10) + (bin & 0x0f);
-ARM GAS  /tmp/ccO29UDV.s 			page 13
+ARM GAS  /tmp/ccSk4RFA.s 			page 13
 
 
  455              		.loc 1 229 2 view .LVU78
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  506              		.thumb_func
  508              	DS1307_GetDate:
  509              	.LFB73:
-ARM GAS  /tmp/ccO29UDV.s 			page 14
+ARM GAS  /tmp/ccSk4RFA.s 			page 14
 
 
   91:Src/ds1307_for_stm32_hal.c **** 	return DS1307_DecodeBCD(DS1307_GetRegByte(DS1307_REG_DATE));
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  557              	.LVL43:
  101:Src/ds1307_for_stm32_hal.c **** 
  558              		.loc 1 101 1 view .LVU97
-ARM GAS  /tmp/ccO29UDV.s 			page 15
+ARM GAS  /tmp/ccSk4RFA.s 			page 15
 
 
  559 000c 08BD     		pop	{r3, pc}
@@ -898,7 +898,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  605              		.loc 1 110 1 view .LVU107
  606              		.cfi_endproc
  607              	.LFE75:
-ARM GAS  /tmp/ccO29UDV.s 			page 16
+ARM GAS  /tmp/ccSk4RFA.s 			page 16
 
 
  609              		.section	.text.DS1307_GetHour,"ax",%progbits
@@ -958,7 +958,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  659              		.loc 1 125 2 view .LVU114
  125:Src/ds1307_for_stm32_hal.c **** }
  660              		.loc 1 125 9 is_stmt 0 view .LVU115
-ARM GAS  /tmp/ccO29UDV.s 			page 17
+ARM GAS  /tmp/ccSk4RFA.s 			page 17
 
 
  661 0002 0120     		movs	r0, #1
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  712              	.LVL54:
  713              	.LFB90:
  231:Src/ds1307_for_stm32_hal.c **** 
-ARM GAS  /tmp/ccO29UDV.s 			page 18
+ARM GAS  /tmp/ccSk4RFA.s 			page 18
 
 
  232:Src/ds1307_for_stm32_hal.c **** /**
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  760              		.cfi_offset 3, -8
  761              		.cfi_offset 14, -4
  159:Src/ds1307_for_stm32_hal.c **** }
-ARM GAS  /tmp/ccO29UDV.s 			page 19
+ARM GAS  /tmp/ccSk4RFA.s 			page 19
 
 
  762              		.loc 1 159 2 is_stmt 1 view .LVU131
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  810              		.section	.text.DS1307_SetMonth,"ax",%progbits
  811              		.align	1
  812              		.global	DS1307_SetMonth
-ARM GAS  /tmp/ccO29UDV.s 			page 20
+ARM GAS  /tmp/ccSk4RFA.s 			page 20
 
 
  813              		.syntax unified
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  862              		.cfi_offset 3, -16
  863              		.cfi_offset 4, -12
  864              		.cfi_offset 5, -8
-ARM GAS  /tmp/ccO29UDV.s 			page 21
+ARM GAS  /tmp/ccSk4RFA.s 			page 21
 
 
  865              		.cfi_offset 14, -4
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  913              		.loc 1 191 42 is_stmt 0 view .LVU156
  914 0000 08B5     		push	{r3, lr}
  915              	.LCFI25:
-ARM GAS  /tmp/ccO29UDV.s 			page 22
+ARM GAS  /tmp/ccSk4RFA.s 			page 22
 
 
  916              		.cfi_def_cfa_offset 8
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  963              	.LVL77:
  201:Src/ds1307_for_stm32_hal.c **** 
  964              		.loc 1 201 1 view .LVU166
-ARM GAS  /tmp/ccO29UDV.s 			page 23
+ARM GAS  /tmp/ccSk4RFA.s 			page 23
 
 
  965 000e 08BD     		pop	{r3, pc}
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  1013              		.section	.bss._ds1307_ui2c,"aw",%nobits
  1014              		.align	2
  1017              	_ds1307_ui2c:
-ARM GAS  /tmp/ccO29UDV.s 			page 24
+ARM GAS  /tmp/ccSk4RFA.s 			page 24
 
 
  1018 0000 00000000 		.space	4
@@ -1391,73 +1391,73 @@ ARM GAS  /tmp/ccO29UDV.s 			page 1
  1025              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
  1026              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
  1027              		.file 8 "Inc/ds1307_for_stm32_hal.h"
-ARM GAS  /tmp/ccO29UDV.s 			page 25
+ARM GAS  /tmp/ccSk4RFA.s 			page 25
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 ds1307_for_stm32_hal.c
-     /tmp/ccO29UDV.s:19     .text.DS1307_SetRegByte:00000000 $t
-     /tmp/ccO29UDV.s:25     .text.DS1307_SetRegByte:00000000 DS1307_SetRegByte
-     /tmp/ccO29UDV.s:67     .text.DS1307_SetRegByte:00000028 $d
-     /tmp/ccO29UDV.s:1017   .bss._ds1307_ui2c:00000000 _ds1307_ui2c
-     /tmp/ccO29UDV.s:72     .text.DS1307_GetRegByte:00000000 $t
-     /tmp/ccO29UDV.s:78     .text.DS1307_GetRegByte:00000000 DS1307_GetRegByte
-     /tmp/ccO29UDV.s:128    .text.DS1307_GetRegByte:00000038 $d
-     /tmp/ccO29UDV.s:133    .text.DS1307_SetClockHalt:00000000 $t
-     /tmp/ccO29UDV.s:139    .text.DS1307_SetClockHalt:00000000 DS1307_SetClockHalt
-     /tmp/ccO29UDV.s:180    .text.DS1307_Init:00000000 $t
-     /tmp/ccO29UDV.s:186    .text.DS1307_Init:00000000 DS1307_Init
-     /tmp/ccO29UDV.s:214    .text.DS1307_Init:00000010 $d
-     /tmp/ccO29UDV.s:219    .text.DS1307_GetClockHalt:00000000 $t
-     /tmp/ccO29UDV.s:225    .text.DS1307_GetClockHalt:00000000 DS1307_GetClockHalt
-     /tmp/ccO29UDV.s:248    .text.DS1307_SetEnableSquareWave:00000000 $t
-     /tmp/ccO29UDV.s:254    .text.DS1307_SetEnableSquareWave:00000000 DS1307_SetEnableSquareWave
-     /tmp/ccO29UDV.s:299    .text.DS1307_SetInterruptRate:00000000 $t
-     /tmp/ccO29UDV.s:305    .text.DS1307_SetInterruptRate:00000000 DS1307_SetInterruptRate
-     /tmp/ccO29UDV.s:343    .text.DS1307_GetTimeZoneHour:00000000 $t
-     /tmp/ccO29UDV.s:349    .text.DS1307_GetTimeZoneHour:00000000 DS1307_GetTimeZoneHour
-     /tmp/ccO29UDV.s:372    .text.DS1307_GetTimeZoneMin:00000000 $t
-     /tmp/ccO29UDV.s:378    .text.DS1307_GetTimeZoneMin:00000000 DS1307_GetTimeZoneMin
-     /tmp/ccO29UDV.s:400    .text.DS1307_SetTimeZone:00000000 $t
-     /tmp/ccO29UDV.s:406    .text.DS1307_SetTimeZone:00000000 DS1307_SetTimeZone
-     /tmp/ccO29UDV.s:441    .text.DS1307_DecodeBCD:00000000 $t
-     /tmp/ccO29UDV.s:447    .text.DS1307_DecodeBCD:00000000 DS1307_DecodeBCD
-     /tmp/ccO29UDV.s:471    .text.DS1307_GetDayOfWeek:00000000 $t
-     /tmp/ccO29UDV.s:477    .text.DS1307_GetDayOfWeek:00000000 DS1307_GetDayOfWeek
-     /tmp/ccO29UDV.s:502    .text.DS1307_GetDate:00000000 $t
-     /tmp/ccO29UDV.s:508    .text.DS1307_GetDate:00000000 DS1307_GetDate
-     /tmp/ccO29UDV.s:533    .text.DS1307_GetMonth:00000000 $t
-     /tmp/ccO29UDV.s:539    .text.DS1307_GetMonth:00000000 DS1307_GetMonth
-     /tmp/ccO29UDV.s:564    .text.DS1307_GetYear:00000000 $t
-     /tmp/ccO29UDV.s:570    .text.DS1307_GetYear:00000000 DS1307_GetYear
-     /tmp/ccO29UDV.s:610    .text.DS1307_GetHour:00000000 $t
-     /tmp/ccO29UDV.s:616    .text.DS1307_GetHour:00000000 DS1307_GetHour
-     /tmp/ccO29UDV.s:642    .text.DS1307_GetMinute:00000000 $t
-     /tmp/ccO29UDV.s:648    .text.DS1307_GetMinute:00000000 DS1307_GetMinute
-     /tmp/ccO29UDV.s:673    .text.DS1307_GetSecond:00000000 $t
-     /tmp/ccO29UDV.s:679    .text.DS1307_GetSecond:00000000 DS1307_GetSecond
-     /tmp/ccO29UDV.s:705    .text.DS1307_EncodeBCD:00000000 $t
-     /tmp/ccO29UDV.s:711    .text.DS1307_EncodeBCD:00000000 DS1307_EncodeBCD
-     /tmp/ccO29UDV.s:738    .text.DS1307_EncodeBCD:0000001c $d
-     /tmp/ccO29UDV.s:743    .text.DS1307_SetDayOfWeek:00000000 $t
-     /tmp/ccO29UDV.s:749    .text.DS1307_SetDayOfWeek:00000000 DS1307_SetDayOfWeek
-     /tmp/ccO29UDV.s:777    .text.DS1307_SetDate:00000000 $t
-     /tmp/ccO29UDV.s:783    .text.DS1307_SetDate:00000000 DS1307_SetDate
-     /tmp/ccO29UDV.s:811    .text.DS1307_SetMonth:00000000 $t
-     /tmp/ccO29UDV.s:817    .text.DS1307_SetMonth:00000000 DS1307_SetMonth
-     /tmp/ccO29UDV.s:845    .text.DS1307_SetYear:00000000 $t
-     /tmp/ccO29UDV.s:851    .text.DS1307_SetYear:00000000 DS1307_SetYear
-     /tmp/ccO29UDV.s:895    .text.DS1307_SetYear:0000002c $d
-     /tmp/ccO29UDV.s:900    .text.DS1307_SetHour:00000000 $t
-     /tmp/ccO29UDV.s:906    .text.DS1307_SetHour:00000000 DS1307_SetHour
-     /tmp/ccO29UDV.s:936    .text.DS1307_SetMinute:00000000 $t
-ARM GAS  /tmp/ccO29UDV.s 			page 26
+     /tmp/ccSk4RFA.s:19     .text.DS1307_SetRegByte:00000000 $t
+     /tmp/ccSk4RFA.s:25     .text.DS1307_SetRegByte:00000000 DS1307_SetRegByte
+     /tmp/ccSk4RFA.s:67     .text.DS1307_SetRegByte:00000028 $d
+     /tmp/ccSk4RFA.s:1017   .bss._ds1307_ui2c:00000000 _ds1307_ui2c
+     /tmp/ccSk4RFA.s:72     .text.DS1307_GetRegByte:00000000 $t
+     /tmp/ccSk4RFA.s:78     .text.DS1307_GetRegByte:00000000 DS1307_GetRegByte
+     /tmp/ccSk4RFA.s:128    .text.DS1307_GetRegByte:00000038 $d
+     /tmp/ccSk4RFA.s:133    .text.DS1307_SetClockHalt:00000000 $t
+     /tmp/ccSk4RFA.s:139    .text.DS1307_SetClockHalt:00000000 DS1307_SetClockHalt
+     /tmp/ccSk4RFA.s:180    .text.DS1307_Init:00000000 $t
+     /tmp/ccSk4RFA.s:186    .text.DS1307_Init:00000000 DS1307_Init
+     /tmp/ccSk4RFA.s:214    .text.DS1307_Init:00000010 $d
+     /tmp/ccSk4RFA.s:219    .text.DS1307_GetClockHalt:00000000 $t
+     /tmp/ccSk4RFA.s:225    .text.DS1307_GetClockHalt:00000000 DS1307_GetClockHalt
+     /tmp/ccSk4RFA.s:248    .text.DS1307_SetEnableSquareWave:00000000 $t
+     /tmp/ccSk4RFA.s:254    .text.DS1307_SetEnableSquareWave:00000000 DS1307_SetEnableSquareWave
+     /tmp/ccSk4RFA.s:299    .text.DS1307_SetInterruptRate:00000000 $t
+     /tmp/ccSk4RFA.s:305    .text.DS1307_SetInterruptRate:00000000 DS1307_SetInterruptRate
+     /tmp/ccSk4RFA.s:343    .text.DS1307_GetTimeZoneHour:00000000 $t
+     /tmp/ccSk4RFA.s:349    .text.DS1307_GetTimeZoneHour:00000000 DS1307_GetTimeZoneHour
+     /tmp/ccSk4RFA.s:372    .text.DS1307_GetTimeZoneMin:00000000 $t
+     /tmp/ccSk4RFA.s:378    .text.DS1307_GetTimeZoneMin:00000000 DS1307_GetTimeZoneMin
+     /tmp/ccSk4RFA.s:400    .text.DS1307_SetTimeZone:00000000 $t
+     /tmp/ccSk4RFA.s:406    .text.DS1307_SetTimeZone:00000000 DS1307_SetTimeZone
+     /tmp/ccSk4RFA.s:441    .text.DS1307_DecodeBCD:00000000 $t
+     /tmp/ccSk4RFA.s:447    .text.DS1307_DecodeBCD:00000000 DS1307_DecodeBCD
+     /tmp/ccSk4RFA.s:471    .text.DS1307_GetDayOfWeek:00000000 $t
+     /tmp/ccSk4RFA.s:477    .text.DS1307_GetDayOfWeek:00000000 DS1307_GetDayOfWeek
+     /tmp/ccSk4RFA.s:502    .text.DS1307_GetDate:00000000 $t
+     /tmp/ccSk4RFA.s:508    .text.DS1307_GetDate:00000000 DS1307_GetDate
+     /tmp/ccSk4RFA.s:533    .text.DS1307_GetMonth:00000000 $t
+     /tmp/ccSk4RFA.s:539    .text.DS1307_GetMonth:00000000 DS1307_GetMonth
+     /tmp/ccSk4RFA.s:564    .text.DS1307_GetYear:00000000 $t
+     /tmp/ccSk4RFA.s:570    .text.DS1307_GetYear:00000000 DS1307_GetYear
+     /tmp/ccSk4RFA.s:610    .text.DS1307_GetHour:00000000 $t
+     /tmp/ccSk4RFA.s:616    .text.DS1307_GetHour:00000000 DS1307_GetHour
+     /tmp/ccSk4RFA.s:642    .text.DS1307_GetMinute:00000000 $t
+     /tmp/ccSk4RFA.s:648    .text.DS1307_GetMinute:00000000 DS1307_GetMinute
+     /tmp/ccSk4RFA.s:673    .text.DS1307_GetSecond:00000000 $t
+     /tmp/ccSk4RFA.s:679    .text.DS1307_GetSecond:00000000 DS1307_GetSecond
+     /tmp/ccSk4RFA.s:705    .text.DS1307_EncodeBCD:00000000 $t
+     /tmp/ccSk4RFA.s:711    .text.DS1307_EncodeBCD:00000000 DS1307_EncodeBCD
+     /tmp/ccSk4RFA.s:738    .text.DS1307_EncodeBCD:0000001c $d
+     /tmp/ccSk4RFA.s:743    .text.DS1307_SetDayOfWeek:00000000 $t
+     /tmp/ccSk4RFA.s:749    .text.DS1307_SetDayOfWeek:00000000 DS1307_SetDayOfWeek
+     /tmp/ccSk4RFA.s:777    .text.DS1307_SetDate:00000000 $t
+     /tmp/ccSk4RFA.s:783    .text.DS1307_SetDate:00000000 DS1307_SetDate
+     /tmp/ccSk4RFA.s:811    .text.DS1307_SetMonth:00000000 $t
+     /tmp/ccSk4RFA.s:817    .text.DS1307_SetMonth:00000000 DS1307_SetMonth
+     /tmp/ccSk4RFA.s:845    .text.DS1307_SetYear:00000000 $t
+     /tmp/ccSk4RFA.s:851    .text.DS1307_SetYear:00000000 DS1307_SetYear
+     /tmp/ccSk4RFA.s:895    .text.DS1307_SetYear:0000002c $d
+     /tmp/ccSk4RFA.s:900    .text.DS1307_SetHour:00000000 $t
+     /tmp/ccSk4RFA.s:906    .text.DS1307_SetHour:00000000 DS1307_SetHour
+     /tmp/ccSk4RFA.s:936    .text.DS1307_SetMinute:00000000 $t
+ARM GAS  /tmp/ccSk4RFA.s 			page 26
 
 
-     /tmp/ccO29UDV.s:942    .text.DS1307_SetMinute:00000000 DS1307_SetMinute
-     /tmp/ccO29UDV.s:970    .text.DS1307_SetSecond:00000000 $t
-     /tmp/ccO29UDV.s:976    .text.DS1307_SetSecond:00000000 DS1307_SetSecond
-     /tmp/ccO29UDV.s:1014   .bss._ds1307_ui2c:00000000 $d
+     /tmp/ccSk4RFA.s:942    .text.DS1307_SetMinute:00000000 DS1307_SetMinute
+     /tmp/ccSk4RFA.s:970    .text.DS1307_SetSecond:00000000 $t
+     /tmp/ccSk4RFA.s:976    .text.DS1307_SetSecond:00000000 DS1307_SetSecond
+     /tmp/ccSk4RFA.s:1014   .bss._ds1307_ui2c:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_I2C_Master_Transmit
