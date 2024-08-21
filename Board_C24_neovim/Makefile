@@ -53,16 +53,17 @@ Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c \
+Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c \
 Src/system_stm32f1xx.c \
 Src/sysmem.c \
 Src/syscalls.c \
 Src/gpio.c \
 Src/i2c.c \
 Src/usart.c \
+Src/tim.c \
 Src/ds1307_for_stm32_hal.c \
 Src/mpu6050.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c \
-Src/tim.c
+Src/test.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -152,7 +153,7 @@ LDSCRIPT = STM32F103C8Tx_FLASH.ld
 # libraries
 LIBS = -lc -lm -lnosys 
 LIBDIR = 
-LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+LDFLAGS = $(MCU) -specs=nano.specs -u _printf_float -u _scanf_float -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin

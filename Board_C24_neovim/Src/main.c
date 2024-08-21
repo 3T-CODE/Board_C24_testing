@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "stm32f1xx_hal_tim.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -30,6 +31,7 @@
 #include<string.h>
 #include "ds1307_for_stm32_hal.h"
 #include "mpu6050.h" 
+#include "test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,28 +52,13 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-const char *DAYS_OF_WEEK[7] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-	uint8_t date = 0;
-	uint8_t	month = 0;
-	uint16_t year = 0;
-	uint8_t	dow = 0;
-	uint8_t	hour = 0;
-	uint8_t	minute = 0;
-	uint8_t	second = 0;
-	uint8_t	zone_hr = 0;
-	uint8_t	zone_min = 0;
-	char ds_buffer[100] = { 0 };
-MPU6050_t MPU6050;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-void test_led();
-void test_ds1307();
-void button_test();
-void buzzer_test();
-void mpu6050_test();
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -98,16 +85,7 @@ int main(void)
   /* USER CODE BEGIN Init */
     /*DS1307_Init(&hi2c1);*/
   /* To test leap year correction. */
-   	DS1307_SetTimeZone(+8, 00);
-   	DS1307_SetDate(29);
-   	DS1307_SetMonth(2);
-   	DS1307_SetYear(2024);
-   	DS1307_SetDayOfWeek(4);
-   	DS1307_SetHour(23);
-   	DS1307_SetMinute(59);
-   	DS1307_SetSecond(30);
     
-    HAL_TIM_PWM_Start(&htim2 , TIM_CHANNEL_1);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -125,17 +103,8 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   /*while (MPU6050_Init(&hi2c2) == 1);*/ //Uncomment when use MPU6050 
-  DS1307_Init(&hi2c2);
-  	/* To test leap year correction. */
-	DS1307_SetTimeZone(+8, 00);
-	DS1307_SetDate(18);
-	DS1307_SetMonth(8);
-	DS1307_SetYear(2024);
-	DS1307_SetDayOfWeek(7);
-	DS1307_SetHour(1);
-	DS1307_SetMinute(1);
-	DS1307_SetSecond(30);
-  /* USER CODE END 2 */
+  test_init();
+	  /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -144,10 +113,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-      test_led();
-      test_ds1307();
- 	 	  HAL_Delay (100);
+      buzzer_test();
+      HAL_Delay(100);
+      led_test();
+      HAL_Delay(100);
+      button_test();
+      HAL_Delay(100);
+      ds1307_test();
+      HAL_Delay(100);
+      mpu6050_test();
+      HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
@@ -189,76 +164,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-/*Test code*/
-void test_led()
-{
-    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-    HAL_Delay(100);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3 ,SET);
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,RESET);
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_15,RESET);
-    HAL_Delay(100);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3 ,SET);
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,SET);
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_15,RESET);
-    HAL_Delay(100);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3 ,SET);
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,RESET);
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_15,SET);
-    HAL_Delay(100);
-
-}
-
-void test_ds1307()
-{
-    /*Ds1307*/
-    uint8_t date = DS1307_GetDate();
-   	uint8_t month = DS1307_GetMonth();
-   	uint16_t year = DS1307_GetYear();
-   	uint8_t dow = DS1307_GetDayOfWeek();
-   	uint8_t hour = DS1307_GetHour();
-   	uint8_t minute = DS1307_GetMinute();
-   	uint8_t second = DS1307_GetSecond();
-   	int8_t zone_hr = DS1307_GetTimeZoneHour();
-   	uint8_t zone_min = DS1307_GetTimeZoneMin();
-		sprintf(ds_buffer, "ISO8601 FORMAT: %04d-%02d-%02dT%02d:%02d:%02d%+03d:%02d \n \r",
-				    year, month, date, hour, minute, second, zone_hr, zone_min);
-		/* May show warning below. Ignore and proceed. */
-    
-	  HAL_UART_Transmit(&huart1, ds_buffer, strlen(ds_buffer), 1000);
-}
-
-void button_test()
-{
-    uint8_t a,b;
-	  a = HAL_GPIO_ReadPin(GPIOB , GPIO_PIN_8);
-    b = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_9);
-    char buffer[50];
-    sprintf(buffer , "State Button 1 = %d, State Button 2 = %d \n\r" , a , b);
-    HAL_UART_Transmit(&huart1 ,buffer ,50 ,100);
-
-}
-
-void buzzer_test()
-{
-    TIM2 -> CCR1 = 50;
-
-}
-
-void mpu6050_test()
-{
-    MPU6050_Read_All(&hi2c2, &MPU6050);
-    float Ax , Ay , Az ,Gx ,Gy ,Gz ;
-    Ax = MPU6050.Ax;
-    Ay = MPU6050.Ay;
-    Az = MPU6050.Az;
-    Gx = MPU6050.Gx;
-    Gy = MPU6050.Gy;
-    Gz = MPU6050.Gz;
-
-
-}
 
 /* USER CODE END 4 */
 

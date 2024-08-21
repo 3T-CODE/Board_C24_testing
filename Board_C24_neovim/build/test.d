@@ -1,4 +1,4 @@
-build/main.o: Src/main.c Inc/main.h \
+build/test.o: Src/test.c Inc/test.h Inc/main.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  Inc/stm32f1xx_hal_conf.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -23,9 +23,9 @@ build/main.o: Src/main.c Inc/main.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h Inc/i2c.h \
- Inc/main.h Inc/tim.h Inc/usart.h Inc/gpio.h Inc/ds1307_for_stm32_hal.h \
- Inc/mpu6050.h Inc/i2c.h Inc/test.h Inc/tim.h Inc/usart.h Inc/gpio.h \
- Inc/ds1307_for_stm32_hal.h
+ Inc/tim.h Inc/usart.h Inc/gpio.h Inc/ds1307_for_stm32_hal.h \
+ Inc/mpu6050.h Inc/usart.h
+Inc/test.h:
 Inc/main.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 Inc/stm32f1xx_hal_conf.h:
@@ -54,15 +54,9 @@ Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 Inc/i2c.h:
-Inc/main.h:
 Inc/tim.h:
 Inc/usart.h:
 Inc/gpio.h:
 Inc/ds1307_for_stm32_hal.h:
 Inc/mpu6050.h:
-Inc/i2c.h:
-Inc/test.h:
-Inc/tim.h:
 Inc/usart.h:
-Inc/gpio.h:
-Inc/ds1307_for_stm32_hal.h:
