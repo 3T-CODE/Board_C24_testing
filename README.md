@@ -8,7 +8,9 @@
   
 ## Thống kê tình hình 
 
-  - Các khối chức năng trên board C24 hoạt động bình thường trừ khối I2C2 onboard (Ds1307 và MPU6050 không giao tiếp được) , ngoài ra còn có lỗi ở ký hiệu trên board cụ thể ở phần HC05 ký hiệu bị in ngược .
+  - Các khối chức năng trên board C24 hoạt động bình thường trừ khối I2C2 onboard (Ds1307 và MPU6050 không giao tiếp được do dùng chung địa chỉ 0x68 (104) ) , ngoài ra còn có lỗi ở ký hiệu trên board cụ thể ở phần HC05 ký hiệu bị in ngược .
+  - Khi tách mpu6050 và ds1307 thì cả 2 thiết bị đề hoạt động bình thường , khi kết nối chung một đường dây do xung đột địa chỉ nên cả 2 thiết bị đều không hoạt động bình thường .
+
   
 ## Demo 
 
@@ -55,13 +57,30 @@ https://github.com/user-attachments/assets/946d8c8c-7efa-4105-867f-b7c1c30bc5ef
   ![7bee6f7779b8dde684a9](https://github.com/user-attachments/assets/641131f6-7fa7-41f3-86e0-e5adf9844518)
 
 ### Esp32 
-  - Esp32 trên board hoạt động bình thường , đã thử nạp code và blink led video demo ở trên phần led 
+  - Esp32 trên board hoạt động bình thường , đã thử nạp code và blink led video demo ở trên phần led
+
+### Ds1307 và mpu6050 
+   - Ds1307 và mpu6050 hoạt động không bình thường khi nối chung 1 đường I2C;
+     
+
+https://github.com/user-attachments/assets/1381c6f5-07c6-4133-8d61-a30e58b92071
+
+
+
+### Test tổng quan 
+
+
+
+https://github.com/user-attachments/assets/36b7e3fb-ff0b-4c1c-af33-3359fab6f8ee
+
+
 
 ## Notes : 
    - Chi tiết tình hình được liệt kê trong file .docx
    - Code của TFT chưa hoàn thiện do đã làm mất file test ban đầu nên cần làm lại file mới và cần thêm chỉnh sửa 
    - Khi sử dụng Led RGB không sử dụng được chức năng live expression trên stm32 
    - Hiện tạm thời không thể test thêm do Stlink đã bị hỏng , cần người hỗ trợ test thêm .
+   - Khi thử thay đổi địa chỉ của mpu6050 địa chỉ cho ra không đúng mong đợi mpu6050 trả về 0x20 thay vì 0x69 , điều này vẫn chưa rõ nguyên do.
 
     
   
