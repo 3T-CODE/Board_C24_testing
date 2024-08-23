@@ -1,0 +1,112 @@
+[0;33m--- esp-idf-monitor 1.4.0 on /dev/ttyUSB0 115200 ---[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18d4: panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89 (discriminator 1)
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18d4: panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89 (discriminator 1)
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18eb: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18eb: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18eb: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18da: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18d4: panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89 (discriminator 1)
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18ee: panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89 (discriminator 1)
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18eb: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18da: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18eb: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18da: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18d7: panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89 (discriminator 1)
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18eb: uart_ll_get_txfifo_len at /home/crypt/esp/esp-idf/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18d4: panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89 (discriminator 1)
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[1;31m--- unknown menu character 'q' --[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400d18ee: panic_print_char_uart at /home/crypt/esp/esp-idf/components/esp_system/panic.c:89 (discriminator 1)
+[0m
+[0;33m0x400d1d5a: panic_handler at /home/crypt/esp/esp-idf/components/esp_system/port/panic_handler.c:150 (discriminator 1)
+[0m
+[1;31m--- unknown menu character 'q' --[0m
+[0m

@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/CMakeFiles/bootloader
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/CMakeFiles/bootloader.rule
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/CMakeFiles/bootloader-complete.rule
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/crypt/esp/esp-idf/myproject/uart-transmit/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
