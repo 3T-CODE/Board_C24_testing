@@ -4,8 +4,8 @@
   Code kiểm thử trong 2 thư mục 'Board_C24_Test' và 'Board_C24_neovim'  , nhưng thư mục 'Board_C24_Test' chưa được hoàn thiện.
   
    - 'Board_C24_neovim' chứa các thư viện , code dành cho việc test các ngoại vi Led , Uart , Ds1307 , MPU6050 , Button
-   - 'Board_C24_Test' chứa thư viện , code dành cho việc test TFT ILI9225.
-   - 'uart-tranmist' chứa code của esp32 
+   - 'SD_Card_BoardC24' chứa thư viện , code dành cho việc test TFT ILI9225.
+   - 'uart-tranmist' chứa code của esp32 .
   
 ## Thống kê tình hình 
 
