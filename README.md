@@ -57,7 +57,13 @@ https://github.com/user-attachments/assets/946d8c8c-7efa-4105-867f-b7c1c30bc5ef
   ![7bee6f7779b8dde684a9](https://github.com/user-attachments/assets/641131f6-7fa7-41f3-86e0-e5adf9844518)
 
 ### Esp32 
-  - Esp32 trên board hoạt động bình thường , đã thử nạp code và blink led video demo ở trên phần led
+  - Esp32 trên board hoạt động bình thường , giao tiếp uart với stm32 bình thường
+
+    
+
+https://github.com/user-attachments/assets/e1cf1f59-9109-4a53-8787-bb723f570e90
+
+
 
 ### Ds1307 và mpu6050 
    - Ds1307 và mpu6050 hoạt động không bình thường khi nối chung 1 đường I2C;
