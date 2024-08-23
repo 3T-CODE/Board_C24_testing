@@ -10,6 +10,7 @@
 
   - Các khối chức năng trên board C24 hoạt động bình thường trừ khối I2C2 onboard (Ds1307 và MPU6050 không giao tiếp được do dùng chung địa chỉ 0x68 (104) ) , ngoài ra còn có lỗi ở ký hiệu trên board cụ thể ở phần HC05 ký hiệu bị in ngược .
   - Khi tách mpu6050 và ds1307 thì cả 2 thiết bị đề hoạt động bình thường , khi kết nối chung một đường dây do xung đột địa chỉ nên cả 2 thiết bị đều không hoạt động bình thường .
+  - Khi chạm tay ở một số vùng trên board (khu vực khối nguồn) board sẽ bị reset (cả stm32 và esp8266)
 
   
 ## Demo 
